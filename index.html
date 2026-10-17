@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CALMST8. Calm state, built for everyday. Washed hoodies, cross-detail denim and graphic tees, available through Instagram.">
+  <meta name="theme-color" content="#E3E2DE">
+  <title>CALMST8 — Calm state. Built for everyday.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Hanken+Grotesk:wght@400;500&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Levels: anything lighter than the studio backdrop goes to white, so the photos multiply cleanly into the page -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <filter id="lift" color-interpolation-filters="sRGB">
+      <feColorMatrix type="saturate" values=".8"/>
+      <feComponentTransfer>
+        <feFuncR type="table" tableValues="0 .21 .45 .73 1 1"/>
+        <feFuncG type="table" tableValues="0 .21 .45 .73 1 1"/>
+        <feFuncB type="table" tableValues="0 .21 .45 .73 1 1"/>
+      </feComponentTransfer>
+    </filter>
+  </svg>
+
+  <a class="skip" href="#pieces">Skip to the collection</a>
+
+  <header class="bar">
+    <nav class="bar-nav" aria-label="Main">
+      <a href="#pieces">Collection</a>
+      <a href="#details">Details</a>
+      <a href="#order">How to order</a>
+    </nav>
+    <a class="bar-mark" href="#top" aria-label="CALMST8, back to top">CALMST8</a>
+    <a class="bar-cta" href="https://ig.me/m/calmst8.world" target="_blank" rel="noopener">Message us <span aria-hidden="true">↗</span></a>
+  </header>
+
+  <main id="top">
+    <!-- Hero: the wordmark is the studio wall; the looks stand in front of it -->
+    <section class="hero" aria-label="CALMST8">
+      <h1 class="hero-mark" aria-label="CALMST8">
+        <span>C</span><span>A</span><span>L</span><span>M</span><span>S</span><span>T</span><span>8</span>
+      </h1>
+      <div class="hero-looks">
+        <figure class="look look-side">
+          <img src="images/brown-hoodie.jpg" alt="Washed hoodie in earth brown, worn with cross-detail denim" width="480" height="552">
+          <figcaption>Washed hoodie <i>Earth brown</i></figcaption>
+        </figure>
+        <figure class="look look-centre">
+          <img src="images/charcoal-hoodie.jpg" alt="Washed hoodie in charcoal, worn with dark cross-detail trousers" width="520" height="640">
+          <figcaption>Washed hoodie <i>Charcoal</i></figcaption>
+        </figure>
+        <figure class="look look-side">
+          <img src="images/white-graphic-tee.jpg" alt="Black graphic tee seen from the back, with a monochrome portrait and white lettering" width="503" height="640">
+          <figcaption>Graphic tee <i>White print</i></figcaption>
+        </figure>
+      </div>
+      <div class="hero-foot">
+        <p class="hero-line">Calm state. <em>Built for everyday.</em></p>
+        <a class="link" href="#pieces">See the five pieces <span aria-hidden="true">↓</span></a>
+      </div>
+    </section>
+
+    <section class="intro" aria-label="About CALMST8">
+      <p class="intro-big">Quiet mind.<br><em>Loud details.</em></p>
+      <p class="intro-small">Washed fabrics, relaxed shapes and a graphic that says enough. The clothes are made for everyday wear, and the details stand out.</p>
+    </section>
+
+    <!-- Collection: sticky index on the left, the looks scroll past on the right -->
+    <section class="pieces" id="pieces" aria-labelledby="pieces-title">
+      <div class="pieces-index">
+        <p class="label">The collection</p>
+        <h2 id="pieces-title">Five pieces.<br><em>Nothing extra.</em></h2>
+        <ol class="index-list" id="index-list"></ol>
+        <p class="index-note">Sizes, prices and availability are shared by message on Instagram.</p>
+      </div>
+      <div class="pieces-list" id="pieces-list"></div>
+    </section>
+
+    <section class="details" id="details" aria-labelledby="details-title">
+      <div class="details-head">
+        <p class="label">The details</p>
+        <h2 id="details-title">From the back,<br><em>a different story.</em></h2>
+      </div>
+      <div class="details-grid">
+        <figure class="detail detail-a">
+          <img src="images/cross-denim.jpg" alt="Faded blue denim with frayed cross appliqués down both legs" loading="lazy" width="512" height="640">
+          <figcaption><span class="label">Denim</span>Frayed cross appliqués, placed down both legs.</figcaption>
+        </figure>
+        <figure class="detail detail-b">
+          <img src="images/red-graphic-tee.jpg" alt="Black tee from the back, with a portrait graphic and red Members Only lettering" loading="lazy" width="512" height="640">
+          <figcaption><span class="label">Graphic tee</span>An oversized back print with red lettering across the shoulders.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="order" id="order" aria-labelledby="order-title">
+      <div class="order-head">
+        <p class="label">How to order</p>
+        <h2 id="order-title">Ordering is done<br><em>by message.</em></h2>
+      </div>
+      <ol class="steps">
+        <li><span class="step-n">1</span><h3>Choose a piece</h3><p>Pick from the five pieces above, and note the colour.</p></li>
+        <li><span class="step-n">2</span><h3>Message @calmst8.world</h3><p>Send the piece and your size to us on Instagram.</p></li>
+        <li><span class="step-n">3</span><h3>We reply with the details</h3><p>We confirm the price, availability and how to pay.</p></li>
+      </ol>
+      <a class="button" href="https://ig.me/m/calmst8.world" target="_blank" rel="noopener">Message us on Instagram <span aria-hidden="true">↗</span></a>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p class="foot-mark" aria-hidden="true">CALMST8</p>
+    <div class="foot-row">
+      <span>© <span id="year"></span> CALMST8</span>
+      <span>Calm state. Built for everyday.</span>
+      <a href="https://www.instagram.com/calmst8.world/" target="_blank" rel="noopener">Instagram ↗</a>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
