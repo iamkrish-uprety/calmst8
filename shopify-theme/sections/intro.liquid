@@ -1,0 +1,16 @@
+<section class="intro" aria-label="About">
+  <p class="intro-big">{{ section.settings.big | escape }}<br><em>{{ section.settings.big_italic | escape }}</em></p>
+  <p class="intro-small">{{ section.settings.text | escape }}</p>
+</section>
+
+{% schema %}
+{
+  "name": "Statement",
+  "settings": [
+    { "type": "text", "id": "big", "label": "Heading", "default": "Quiet mind." },
+    { "type": "text", "id": "big_italic", "label": "Heading, italic part", "default": "Loud details." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Washed fabrics, relaxed shapes and a graphic that says enough. The clothes are made for everyday wear, and the details stand out." }
+  ],
+  "presets": [{ "name": "Statement" }]
+}
+{% endschema %}

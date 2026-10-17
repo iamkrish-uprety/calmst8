@@ -1,0 +1,33 @@
+<section class="simple-page cart-page">
+  <p class="label">Your bag</p>
+  <h1>{% if cart.item_count == 0 %}Your bag is empty.{% else %}Ready when you are.{% endif %}</h1>
+  {%- if cart.item_count == 0 -%}
+    <p class="simple-lead">Choose a piece and a size to add it.</p>
+    <a class="button" href="{{ routes.root_url }}#pieces">Shop the collection <span aria-hidden="true">→</span></a>
+  {%- else -%}
+    <form action="{{ routes.cart_url }}" method="post">
+      <ul class="simple-list">
+        {%- for item in cart.items -%}
+          <li>
+            <span><a href="{{ item.url }}">{{ item.product.title | escape }}</a>{% unless item.product.has_only_default_variant %} · {{ item.variant.title | escape }}{% endunless %}</span>
+            <span class="cart-qty">
+              <label class="visually-hidden" for="qty-{{ forloop.index }}">Quantity</label>
+              <input id="qty-{{ forloop.index }}" type="number" name="updates[]" value="{{ item.quantity }}" min="0" max="5">
+              {{ item.final_line_price | money }}
+            </span>
+          </li>
+        {%- endfor -%}
+      </ul>
+      <p class="bag-row"><span>Subtotal</span><span>{{ cart.total_price | money }}</span></p>
+      <p class="bag-note">Delivery is added at checkout. {{ settings.lead_time | escape }}</p>
+      <div class="order-actions cart-actions">
+        <button class="button" type="submit" name="checkout">Check out <span aria-hidden="true">→</span></button>
+        <button class="link" type="submit" name="update">Update bag</button>
+      </div>
+    </form>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{ "name": "Cart" }
+{% endschema %}

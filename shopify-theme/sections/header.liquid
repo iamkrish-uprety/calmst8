@@ -1,0 +1,25 @@
+<header class="bar{% unless template.name == 'index' %} scrolled{% endunless %}">
+  <nav class="bar-nav" aria-label="Main">
+    {%- for link in section.settings.menu.links -%}
+      <a href="{{ link.url }}">{{ link.title | escape }}</a>
+    {%- else -%}
+      <a href="{{ routes.root_url }}#pieces">Collection</a>
+      <a href="{{ routes.root_url }}#details">Details</a>
+      <a href="{{ routes.root_url }}#order">How to order</a>
+    {%- endfor -%}
+  </nav>
+  <a class="bar-mark" href="{{ routes.root_url }}" aria-label="{{ shop.name }}, home">{{ section.settings.wordmark | default: shop.name }}</a>
+  <a class="bar-cta bar-bag" href="{{ routes.cart_url }}" id="bag-open" aria-haspopup="dialog">
+    Bag <span class="bag-count" id="bag-count">{{ cart.item_count }}</span>
+  </a>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    { "type": "text", "id": "wordmark", "label": "Wordmark", "default": "CALMST8" },
+    { "type": "link_list", "id": "menu", "label": "Menu", "info": "Leave empty to show Collection, Details and How to order." }
+  ]
+}
+{% endschema %}

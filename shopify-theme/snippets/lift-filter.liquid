@@ -1,0 +1,14 @@
+{%- comment -%}
+  Levels: anything lighter than the studio backdrop goes to white, so product photos
+  multiply cleanly into the page. Used by .look img and .piece-img img in calmst8.css.
+{%- endcomment -%}
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <filter id="lift" color-interpolation-filters="sRGB">
+    <feColorMatrix type="saturate" values=".8"/>
+    <feComponentTransfer>
+      <feFuncR type="table" tableValues="0 .21 .45 .73 1 1"/>
+      <feFuncG type="table" tableValues="0 .21 .45 .73 1 1"/>
+      <feFuncB type="table" tableValues="0 .21 .45 .73 1 1"/>
+    </feComponentTransfer>
+  </filter>
+</svg>

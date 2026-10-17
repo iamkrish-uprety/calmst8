@@ -1,0 +1,112 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "blocks": {
+        "look1": {
+          "type": "look",
+          "settings": {
+            "fallback": "brown-hoodie.jpg",
+            "title": "Washed hoodie",
+            "colour": "Earth brown"
+          }
+        },
+        "look2": {
+          "type": "look",
+          "settings": {
+            "fallback": "charcoal-hoodie.jpg",
+            "title": "Washed hoodie",
+            "colour": "Charcoal"
+          }
+        },
+        "look3": {
+          "type": "look",
+          "settings": {
+            "fallback": "white-graphic-tee.jpg",
+            "title": "Graphic tee",
+            "colour": "White print"
+          }
+        }
+      },
+      "block_order": [
+        "look1",
+        "look2",
+        "look3"
+      ],
+      "settings": {}
+    },
+    "intro": {
+      "type": "intro",
+      "settings": {}
+    },
+    "pieces": {
+      "type": "featured-pieces",
+      "settings": {}
+    },
+    "details": {
+      "type": "details",
+      "blocks": {
+        "d1": {
+          "type": "detail",
+          "settings": {
+            "fallback": "cross-denim.jpg",
+            "label": "Denim",
+            "text": "Frayed cross appliqu\u00e9s, placed down both legs."
+          }
+        },
+        "d2": {
+          "type": "detail",
+          "settings": {
+            "fallback": "red-graphic-tee.jpg",
+            "label": "Graphic tee",
+            "text": "An oversized back print with red lettering across the shoulders."
+          }
+        }
+      },
+      "block_order": [
+        "d1",
+        "d2"
+      ],
+      "settings": {}
+    },
+    "order": {
+      "type": "order-steps",
+      "blocks": {
+        "s1": {
+          "type": "step",
+          "settings": {
+            "title": "Choose a piece and size",
+            "text": "Add it to your bag. You can order several pieces at once."
+          }
+        },
+        "s2": {
+          "type": "step",
+          "settings": {
+            "title": "Pay at checkout",
+            "text": "Pay securely at checkout. We deliver in the UK for now."
+          }
+        },
+        "s3": {
+          "type": "step",
+          "settings": {
+            "title": "We make it for you",
+            "text": "You get a confirmation email straight away, and your order arrives in about 2 weeks."
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "intro",
+    "pieces",
+    "details",
+    "order"
+  ]
+}

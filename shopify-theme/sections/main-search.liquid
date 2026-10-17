@@ -1,0 +1,23 @@
+<section class="simple-page">
+  <p class="label">Search</p>
+  <h1>{% if search.performed %}Results for “{{ search.terms | escape }}”{% else %}Search the shop{% endif %}</h1>
+  <form action="{{ routes.search_url }}" method="get" class="search-form" role="search">
+    <label class="visually-hidden" for="q">Search</label>
+    <input id="q" type="search" name="q" value="{{ search.terms | escape }}" placeholder="Hoodie, denim, tee">
+    <input type="hidden" name="type" value="product">
+    <button class="button" type="submit">Search</button>
+  </form>
+  {%- if search.performed -%}
+    <ul class="simple-list">
+      {%- for item in search.results -%}
+        <li><a href="{{ item.url }}">{{ item.title | escape }}</a>{% if item.price %}<span>{{ item.price | money }}</span>{% endif %}</li>
+      {%- else -%}
+        <li>No pieces match that search.</li>
+      {%- endfor -%}
+    </ul>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{ "name": "Search" }
+{% endschema %}

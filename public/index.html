@@ -33,7 +33,7 @@
       <a href="#order">How to order</a>
     </nav>
     <a class="bar-mark" href="#top" aria-label="CALMST8, back to top">CALMST8</a>
-    <a class="bar-cta" href="https://ig.me/m/calmst8.world" target="_blank" rel="noopener">Message us <span aria-hidden="true">↗</span></a>
+    <button class="bar-cta bar-bag" type="button" id="bag-open" aria-haspopup="dialog">Bag <span class="bag-count" id="bag-count">0</span></button>
   </header>
 
   <main id="top">
@@ -58,7 +58,7 @@
       </div>
       <div class="hero-foot">
         <p class="hero-line">Calm state. <em>Built for everyday.</em></p>
-        <a class="link" href="#pieces">See the five pieces <span aria-hidden="true">↓</span></a>
+        <a class="link" href="#pieces">Shop the five pieces <span aria-hidden="true">↓</span></a>
       </div>
     </section>
 
@@ -73,7 +73,7 @@
         <p class="label">The collection</p>
         <h2 id="pieces-title">Five pieces.<br><em>Nothing extra.</em></h2>
         <ol class="index-list" id="index-list"></ol>
-        <p class="index-note">Sizes, prices and availability are shared by message on Instagram.</p>
+        <p class="index-note" id="lead-note">Made to order. Delivered in about 2 weeks.</p>
       </div>
       <div class="pieces-list" id="pieces-list"></div>
     </section>
@@ -98,14 +98,17 @@
     <section class="order" id="order" aria-labelledby="order-title">
       <div class="order-head">
         <p class="label">How to order</p>
-        <h2 id="order-title">Ordering is done<br><em>by message.</em></h2>
+        <h2 id="order-title">Made to order,<br><em>with you in two weeks.</em></h2>
       </div>
       <ol class="steps">
-        <li><span class="step-n">1</span><h3>Choose a piece</h3><p>Pick from the five pieces above, and note the colour.</p></li>
-        <li><span class="step-n">2</span><h3>Message @calmst8.world</h3><p>Send the piece and your size to us on Instagram.</p></li>
-        <li><span class="step-n">3</span><h3>We reply with the details</h3><p>We confirm the price, availability and how to pay.</p></li>
+        <li><span class="step-n">1</span><h3>Choose a piece and size</h3><p>Add it to your bag. You can order several pieces at once.</p></li>
+        <li><span class="step-n">2</span><h3>Pay at checkout</h3><p>Pay securely by card through Stripe. We deliver in the UK for now.</p></li>
+        <li><span class="step-n">3</span><h3>We make it for you</h3><p>You get a confirmation email straight away, and your order arrives in about 2 weeks.</p></li>
       </ol>
-      <a class="button" href="https://ig.me/m/calmst8.world" target="_blank" rel="noopener">Message us on Instagram <span aria-hidden="true">↗</span></a>
+      <div class="order-actions">
+        <a class="button" href="#pieces">Shop the collection <span aria-hidden="true">↑</span></a>
+        <a class="link" href="https://ig.me/m/calmst8.world" target="_blank" rel="noopener">Questions? Message us on Instagram <span aria-hidden="true">↗</span></a>
+      </div>
     </section>
   </main>
 
@@ -118,6 +121,21 @@
       <a href="#top">Back to top ↑</a>
     </div>
   </footer>
+
+  <dialog class="bag" id="bag" aria-labelledby="bag-title">
+    <div class="bag-head">
+      <h2 id="bag-title">Your bag</h2>
+      <button class="bag-close" type="button" id="bag-close">Close</button>
+    </div>
+    <ul class="bag-items" id="bag-items"></ul>
+    <p class="bag-empty" id="bag-empty">Your bag is empty. Choose a piece and a size to add it.</p>
+    <div class="bag-foot" id="bag-foot">
+      <p class="bag-row"><span>Subtotal</span><span id="bag-subtotal">£0.00</span></p>
+      <p class="bag-note">UK delivery is added at checkout. <span id="bag-lead">Made to order. Delivered in about 2 weeks.</span></p>
+      <button class="button bag-checkout" type="button" id="bag-checkout">Check out <span aria-hidden="true">→</span></button>
+      <p class="bag-error" id="bag-error" role="alert"></p>
+    </div>
+  </dialog>
 
   <script src="main.js"></script>
 </body>

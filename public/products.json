@@ -1,0 +1,44 @@
+{
+  "_note": "Single source of truth for the shop. The checkout backend reads prices from this file, never from the browser. Prices are in pence. Replace the placeholder prices and sizes before going live, then set placeholder to false.",
+  "placeholder": true,
+  "currency": "gbp",
+  "shipping": {
+    "countries": ["GB"],
+    "rates": [
+      { "label": "UK delivery", "amount": 500, "minBusinessDays": 10, "maxBusinessDays": 15 }
+    ]
+  },
+  "leadTime": "Made to order. Delivered in about 2 weeks.",
+  "products": [
+    {
+      "id": "charcoal-hoodie", "name": "Washed hoodie", "colour": "Charcoal", "kind": "Hoodie",
+      "price": 6500, "sizes": ["S", "M", "L", "XL"],
+      "image": "images/charcoal-hoodie.jpg", "post": "DWJllP_jPAE",
+      "desc": "A relaxed hoodie with a washed finish. Shown with dark cross-detail trousers."
+    },
+    {
+      "id": "cross-denim", "name": "Cross-detail denim", "colour": "Faded blue", "kind": "Denim",
+      "price": 8500, "sizes": ["28", "30", "32", "34", "36"],
+      "image": "images/cross-denim.jpg", "post": "DWcB03cjNlr",
+      "desc": "Wide-leg denim with frayed cross appliqués down both legs."
+    },
+    {
+      "id": "brown-hoodie", "name": "Washed hoodie", "colour": "Earth brown", "kind": "Hoodie",
+      "price": 6500, "sizes": ["S", "M", "L", "XL"],
+      "image": "images/brown-hoodie.jpg", "post": "DWUt3zAjORb",
+      "desc": "A pullover hoodie with a washed finish and a front pocket. Shown with blue cross-detail denim."
+    },
+    {
+      "id": "red-graphic-tee", "name": "Graphic tee", "colour": "Black, red print", "kind": "Graphic tee",
+      "price": 4000, "sizes": ["S", "M", "L", "XL"],
+      "image": "images/red-graphic-tee.jpg", "post": "DWOoohyDOk_",
+      "desc": "An oversized black tee with a large portrait graphic and red lettering across the back."
+    },
+    {
+      "id": "white-graphic-tee", "name": "Graphic tee", "colour": "Black, white print", "kind": "Graphic tee",
+      "price": 4000, "sizes": ["S", "M", "L", "XL"],
+      "image": "images/white-graphic-tee.jpg", "post": "DWE3_ouDChF",
+      "desc": "A black tee with a monochrome portrait graphic and oversized white lettering across the back."
+    }
+  ]
+}

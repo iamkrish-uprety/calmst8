@@ -1,0 +1,13 @@
+<section class="simple-page">
+  <p class="label">Collections</p>
+  <h1>Shop</h1>
+  <ul class="simple-list">
+    {%- for collection in collections -%}
+      <li><a href="{{ collection.url }}">{{ collection.title | escape }}</a><span>{{ collection.products_count }}</span></li>
+    {%- endfor -%}
+  </ul>
+</section>
+
+{% schema %}
+{ "name": "Collections list" }
+{% endschema %}

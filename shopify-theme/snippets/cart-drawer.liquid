@@ -1,0 +1,15 @@
+{%- comment -%} Bag drawer. Filled by calmst8.js from /cart.js; checkout is Shopify's own. {%- endcomment -%}
+<dialog class="bag" id="bag" aria-labelledby="bag-title">
+  <div class="bag-head">
+    <h2 id="bag-title">Your bag</h2>
+    <button class="bag-close" type="button" id="bag-close">Close</button>
+  </div>
+  <ul class="bag-items" id="bag-items"></ul>
+  <p class="bag-empty" id="bag-empty">Your bag is empty. Choose a piece and a size to add it.</p>
+  <div class="bag-foot" id="bag-foot">
+    <p class="bag-row"><span>Subtotal</span><span id="bag-subtotal">{{ cart.total_price | money }}</span></p>
+    <p class="bag-note">Delivery is added at checkout. {{ settings.lead_time | escape }}</p>
+    <a class="button bag-checkout" href="{{ routes.root_url }}checkout">Check out <span aria-hidden="true">→</span></a>
+    <p class="bag-error" id="bag-error" role="alert"></p>
+  </div>
+</dialog>

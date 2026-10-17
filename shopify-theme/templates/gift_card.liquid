@@ -1,0 +1,20 @@
+{% layout none %}
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gift card — {{ shop.name }}</title>
+  {{ 'calmst8.css' | asset_url | stylesheet_tag }}
+  {{ content_for_header }}
+</head>
+<body>
+  <main class="simple-page">
+    <p class="label">{{ shop.name }} gift card</p>
+    <h1>{{ gift_card.balance | money }}</h1>
+    <p class="simple-lead">Code: <strong>{{ gift_card.code | format_code }}</strong></p>
+    {%- if gift_card.expired -%}<p>This gift card has expired.</p>{%- endif -%}
+    <a class="button" href="{{ shop.url }}">Shop the collection <span aria-hidden="true">→</span></a>
+  </main>
+</body>
+</html>

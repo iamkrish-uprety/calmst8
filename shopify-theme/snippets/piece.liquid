@@ -1,0 +1,50 @@
+{%- comment -%}
+  One product with its size picker and Add to bag.
+  Usage: {% render 'piece', product: product, heading: 'h3' %}
+  Variants are listed directly, so products should have a single option (Size).
+  Colour comes from the product metafield custom.colour (single line text).
+  For made-to-order, set each variant to "Continue selling when out of stock" or don't track inventory.
+{%- endcomment -%}
+{%- liquid
+  assign heading = heading | default: 'h3'
+  assign colour = product.metafields.custom.colour.value
+  assign option_name = product.options.first | default: 'Size'
+-%}
+<article class="piece reveal" id="{{ product.handle }}" aria-labelledby="{{ product.handle }}-name">
+  <div class="piece-img">
+    {%- if product.featured_image -%}
+      {{ product.featured_image | image_url: width: 1000 | image_tag: loading: 'lazy', sizes: '(min-width: 960px) 30vw, 90vw', widths: '400, 600, 800, 1000' }}
+    {%- endif -%}
+  </div>
+  {%- form 'product', product, class: 'piece-tag', novalidate: 'novalidate', data-product-form: '' -%}
+    <p class="label">{{ product.type | default: 'CALMST8' | escape }}</p>
+    <{{ heading }} id="{{ product.handle }}-name">
+      {%- if heading == 'h3' -%}<a href="{{ product.url }}">{{ product.title | escape }}</a>{%- else -%}{{ product.title | escape }}{%- endif -%}
+      {%- if colour != blank %} <em>{{ colour | escape }}</em>{% endif -%}
+    </{{ heading }}>
+    <p class="price">{{ product.price | money }}</p>
+    {%- if heading == 'h3' -%}
+      <p class="desc">{{ product.description | strip_html | truncatewords: 26 }}</p>
+    {%- else -%}
+      <div class="desc rte">{{ product.description }}</div>
+    {%- endif -%}
+
+    {%- if product.has_only_default_variant -%}
+      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+    {%- else -%}
+      <fieldset class="sizes">
+        <legend class="label">{{ option_name | escape }}</legend>
+        {%- for variant in product.variants -%}
+          <label class="size">
+            <input type="radio" name="id" value="{{ variant.id }}" {% unless variant.available %}disabled{% endunless %}>
+            <span>{{ variant.title | escape }}</span>
+          </label>
+        {%- endfor -%}
+      </fieldset>
+    {%- endif -%}
+    <p class="size-error" role="alert"></p>
+    <button class="add" type="submit" {% unless product.available %}disabled{% endunless %}>
+      {%- if product.available -%}Add to bag <span aria-hidden="true">+</span>{%- else -%}Sold out{%- endif -%}
+    </button>
+  {%- endform -%}
+</article>

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#E3E2DE">
+  <title>Order confirmed — CALMST8</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&family=Hanken+Grotesk:wght@400;500&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="bar scrolled">
+    <span></span>
+    <a class="bar-mark" href="./">CALMST8</a>
+    <a class="bar-cta" href="./#pieces">Back to the shop</a>
+  </header>
+
+  <main class="thanks">
+    <p class="label" id="order-number">Order confirmed</p>
+    <h1 id="thanks-title">Thank you.<br><em>It’s being made for you.</em></h1>
+    <p class="thanks-lead" id="thanks-lead">Your payment went through. A confirmation email is on its way.</p>
+    <ul class="thanks-items" id="thanks-items" hidden></ul>
+    <p class="thanks-total" id="thanks-total" hidden></p>
+    <p class="thanks-note">Each piece is made to order and arrives in about 2 weeks. Questions? Reply to your confirmation email or <a class="link" href="https://ig.me/m/calmst8.world" target="_blank" rel="noopener">message @calmst8.world</a>.</p>
+  </main>
+
+  <script>
+    try { localStorage.removeItem('calmst8-bag'); } catch {}
+    const esc = v => String(v).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const id = new URLSearchParams(location.search).get('session_id');
+    if (id) {
+      fetch('/api/order?session_id=' + encodeURIComponent(id))
+        .then(r => r.ok ? r.json() : Promise.reject())
+        .then(o => {
+          document.getElementById('order-number').textContent = 'Order ' + o.number;
+          if (o.firstName) document.getElementById('thanks-title').innerHTML = `Thank you, ${esc(o.firstName)}.<br><em>It’s being made for you.</em>`;
+          document.getElementById('thanks-lead').textContent = `A confirmation has been sent to ${o.email}.`;
+          const list = document.getElementById('thanks-items');
+          list.innerHTML = o.items.map(i => `<li><span>${esc(i.name)}, ${esc(i.colour)}</span><span>Size ${esc(i.size)} × ${i.qty}</span></li>`).join('');
+          list.hidden = false;
+          const total = document.getElementById('thanks-total');
+          total.textContent = 'Total paid ' + o.total;
+          total.hidden = false;
+        })
+        .catch(() => {});
+    }
+  </script>
+</body>
+</html>

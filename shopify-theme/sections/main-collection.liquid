@@ -1,0 +1,22 @@
+<section class="pieces page-top" id="pieces">
+  <div class="pieces-index">
+    <p class="label">Collection</p>
+    <h2>{{ collection.title | escape }}</h2>
+    {%- if collection.description != blank -%}<div class="index-note">{{ collection.description }}</div>{%- endif -%}
+    <p class="index-note">{{ settings.lead_time | escape }}</p>
+  </div>
+  <div class="pieces-list">
+    {%- paginate collection.products by 24 -%}
+      {%- for product in collection.products -%}
+        {% render 'piece', product: product %}
+      {%- else -%}
+        <p class="index-note">There are no pieces in this collection yet.</p>
+      {%- endfor -%}
+      {%- if paginate.pages > 1 -%}<nav class="pagination">{{ paginate | default_pagination }}</nav>{%- endif -%}
+    {%- endpaginate -%}
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Collection" }
+{% endschema %}

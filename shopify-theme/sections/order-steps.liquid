@@ -1,0 +1,41 @@
+<section class="order" id="order" aria-labelledby="order-title-{{ section.id }}">
+  <div class="order-head">
+    <p class="label">{{ section.settings.label | escape }}</p>
+    <h2 id="order-title-{{ section.id }}">{{ section.settings.heading | escape }}<br><em>{{ section.settings.heading_italic | escape }}</em></h2>
+  </div>
+  <ol class="steps">
+    {%- for block in section.blocks -%}
+      <li {{ block.shopify_attributes }}><span class="step-n">{{ forloop.index }}</span><h3>{{ block.settings.title | escape }}</h3><p>{{ block.settings.text | escape }}</p></li>
+    {%- endfor -%}
+  </ol>
+  <div class="order-actions">
+    <a class="button" href="#pieces">{{ section.settings.button | escape }} <span aria-hidden="true">↑</span></a>
+    {%- if section.settings.instagram != blank -%}
+      <a class="link" href="https://ig.me/m/{{ section.settings.instagram }}" target="_blank" rel="noopener">Questions? Message us on Instagram <span aria-hidden="true">↗</span></a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "How to order",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Label", "default": "How to order" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Made to order," },
+    { "type": "text", "id": "heading_italic", "label": "Heading, italic part", "default": "with you in two weeks." },
+    { "type": "text", "id": "button", "label": "Button label", "default": "Shop the collection" },
+    { "type": "text", "id": "instagram", "label": "Instagram username", "default": "calmst8.world" }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "text", "label": "Text" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "How to order" }]
+}
+{% endschema %}

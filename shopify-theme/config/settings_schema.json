@@ -1,0 +1,27 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "CALMST8",
+    "theme_version": "1.0.0",
+    "theme_author": "CALMST8",
+    "theme_documentation_url": "https://github.com/iamkrish-uprety/calmst8",
+    "theme_support_url": "https://github.com/iamkrish-uprety/calmst8"
+  },
+  {
+    "name": "Shop",
+    "settings": [
+      {
+        "type": "text",
+        "id": "lead_time",
+        "label": "Delivery promise",
+        "default": "Made to order. Delivered in about 2 weeks.",
+        "info": "Shown next to prices, in the bag and on product pages."
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon"
+      }
+    ]
+  }
+]

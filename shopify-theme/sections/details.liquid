@@ -1,0 +1,43 @@
+<section class="details" id="details" aria-labelledby="details-title-{{ section.id }}">
+  <div class="details-head">
+    <p class="label">{{ section.settings.label | escape }}</p>
+    <h2 id="details-title-{{ section.id }}">{{ section.settings.heading | escape }}<br><em>{{ section.settings.heading_italic | escape }}</em></h2>
+  </div>
+  <div class="details-grid">
+    {%- for block in section.blocks limit: 2 -%}
+      <figure class="detail {% cycle 'detail-a', 'detail-b' %}" {{ block.shopify_attributes }}>
+        {%- if block.settings.image != blank -%}
+          {{ block.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', sizes: '(min-width: 960px) 28vw, 45vw', widths: '400, 600, 900, 1200' }}
+        {%- elsif block.settings.fallback != blank -%}
+          <img src="{{ block.settings.fallback | asset_url }}" alt="" loading="lazy" width="512" height="640">
+        {%- endif -%}
+        <figcaption><span class="label">{{ block.settings.label | escape }}</span>{{ block.settings.text | escape }}</figcaption>
+      </figure>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Details",
+  "max_blocks": 2,
+  "settings": [
+    { "type": "text", "id": "label", "label": "Label", "default": "The details" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "From the back," },
+    { "type": "text", "id": "heading_italic", "label": "Heading, italic part", "default": "a different story." }
+  ],
+  "blocks": [
+    {
+      "type": "detail",
+      "name": "Detail photo",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Photo" },
+        { "type": "text", "id": "fallback", "label": "Theme file used when no photo is picked" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Denim" },
+        { "type": "text", "id": "text", "label": "Caption", "default": "Frayed cross appliqués, placed down both legs." }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Details" }]
+}
+{% endschema %}

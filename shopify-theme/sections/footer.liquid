@@ -1,0 +1,25 @@
+<footer class="foot">
+  <p class="foot-mark" aria-hidden="true">{{ section.settings.wordmark | default: shop.name }}</p>
+  <div class="foot-row">
+    <span>© {{ 'now' | date: '%Y' }} {{ shop.name }}</span>
+    <span>{{ section.settings.line | escape }}</span>
+    {%- for link in section.settings.menu.links -%}
+      <a href="{{ link.url }}">{{ link.title | escape }}</a>
+    {%- endfor -%}
+    {%- if section.settings.instagram != blank -%}
+      <a href="https://www.instagram.com/{{ section.settings.instagram }}/" target="_blank" rel="noopener">Instagram ↗</a>
+    {%- endif -%}
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    { "type": "text", "id": "wordmark", "label": "Wordmark", "default": "CALMST8" },
+    { "type": "text", "id": "line", "label": "Line", "default": "Calm state. Built for everyday." },
+    { "type": "link_list", "id": "menu", "label": "Menu", "info": "Add your policy pages (shipping, refunds, privacy) here." },
+    { "type": "text", "id": "instagram", "label": "Instagram username", "default": "calmst8.world" }
+  ]
+}
+{% endschema %}

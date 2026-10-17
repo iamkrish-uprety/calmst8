@@ -1,0 +1,40 @@
+{%- comment -%} Sticky index on the left, the products scroll past on the right. {%- endcomment -%}
+{%- liquid
+  assign source = section.settings.collection
+  if source == blank
+    assign source = collections.all
+  endif
+-%}
+<section class="pieces" id="pieces" aria-labelledby="pieces-title-{{ section.id }}">
+  <div class="pieces-index">
+    <p class="label">{{ section.settings.label | escape }}</p>
+    <h2 id="pieces-title-{{ section.id }}">{{ section.settings.heading | escape }}<br><em>{{ section.settings.heading_italic | escape }}</em></h2>
+    <ol class="index-list">
+      {%- for product in source.products limit: section.settings.limit -%}
+        <li><a href="#{{ product.handle }}" data-for="{{ product.handle }}"><span class="n">{{ product.title | escape }}</span><span class="c">{{ product.metafields.custom.colour.value | escape }}</span></a></li>
+      {%- endfor -%}
+    </ol>
+    <p class="index-note">{{ settings.lead_time | escape }}</p>
+  </div>
+  <div class="pieces-list">
+    {%- for product in source.products limit: section.settings.limit -%}
+      {% render 'piece', product: product %}
+    {%- else -%}
+      <p class="index-note">Add products to your store, then pick their collection in this section’s settings.</p>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured pieces",
+  "settings": [
+    { "type": "collection", "id": "collection", "label": "Collection", "info": "Leave empty to show all products." },
+    { "type": "range", "id": "limit", "label": "Number of pieces", "min": 1, "max": 24, "step": 1, "default": 12 },
+    { "type": "text", "id": "label", "label": "Label", "default": "The collection" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Five pieces." },
+    { "type": "text", "id": "heading_italic", "label": "Heading, italic part", "default": "Nothing extra." }
+  ],
+  "presets": [{ "name": "Featured pieces" }]
+}
+{% endschema %}
