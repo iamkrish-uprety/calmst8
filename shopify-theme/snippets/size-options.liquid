@@ -1,0 +1,27 @@
+{%- comment -%}
+  Size buttons for a product, always in wearing order (XXS → XXXL), whatever order
+  the variants were created in. Anything not in the list (e.g. waist sizes) follows after.
+  Usage: {% render 'size-options', product: product %}
+{%- endcomment -%}
+{%- liquid
+  assign order = 'XXS,XS,S,M,L,XL,XXL,XXXL,2XL,3XL' | split: ','
+  assign listed = ''
+-%}
+<fieldset class="sizes">
+  <legend class="label">{{ product.options.first | default: 'Size' | escape }}</legend>
+  {%- for size in order -%}
+    {%- for variant in product.variants -%}
+      {%- assign title = variant.title | upcase -%}
+      {%- if title == size -%}
+        <label class="size"><input type="radio" name="id" value="{{ variant.id }}" {% unless variant.available %}disabled{% endunless %}><span>{{ variant.title | escape }}</span></label>
+        {%- assign listed = listed | append: ',' | append: variant.id | append: ',' -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endfor -%}
+  {%- for variant in product.variants -%}
+    {%- assign key = ',' | append: variant.id | append: ',' -%}
+    {%- unless listed contains key -%}
+      <label class="size"><input type="radio" name="id" value="{{ variant.id }}" {% unless variant.available %}disabled{% endunless %}><span>{{ variant.title | escape }}</span></label>
+    {%- endunless -%}
+  {%- endfor -%}
+</fieldset>

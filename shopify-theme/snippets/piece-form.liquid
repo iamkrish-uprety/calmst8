@@ -1,7 +1,6 @@
 {%- comment -%} The product form on its own, for the product page. {%- endcomment -%}
 {%- liquid
   assign colour = product.metafields.custom.colour.value
-  assign option_name = product.options.first | default: 'Size'
 -%}
 {%- liquid
   assign form_class = 'piece-tag'
@@ -17,12 +16,7 @@
   {%- if product.has_only_default_variant -%}
     <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
   {%- else -%}
-    <fieldset class="sizes">
-      <legend class="label">{{ option_name | escape }}</legend>
-      {%- for variant in product.variants -%}
-        <label class="size"><input type="radio" name="id" value="{{ variant.id }}" {% unless variant.available %}disabled{% endunless %}><span>{{ variant.title | escape }}</span></label>
-      {%- endfor -%}
-    </fieldset>
+      {% render 'size-options', product: product %}
   {%- endif -%}
   <p class="size-error" role="alert"></p>
   <button class="add" type="submit" {% unless product.available %}disabled{% endunless %}>
