@@ -109,10 +109,15 @@
         "heading": "Order online,",
         "heading_italic": "with you in two weeks."
       }
+    },
+    "ticker": {
+      "type": "ticker",
+      "settings": {}
     }
   },
   "order": [
     "hero",
+    "ticker",
     "intro",
     "pieces",
     "details",

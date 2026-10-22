@@ -31,7 +31,7 @@ function renderBag(cart) {
   $('#bag-foot').hidden = cart.item_count === 0;
   $('#bag-subtotal').textContent = money(cart.total_price);
   $('#bag-items').innerHTML = cart.items.map((item, i) => `
-    <li class="bag-item">
+    <li class="bag-item" style="--n:${i}">
       ${item.image ? `<img src="${esc(item.image + (item.image.includes('?') ? '&' : '?') + 'width=160')}" alt="" width="72" height="90">` : '<span></span>'}
       <div>
         <p class="bag-name">${esc(item.product_title)}</p>
@@ -82,6 +82,11 @@ document.querySelectorAll('[data-product-form]').forEach(form => {
     try {
       await cartRequest('cart/add.js', { items: [{ id: Number(choice.value), quantity: 1 }] });
       await refreshBag();
+      const count = $('#bag-count');
+      count.classList.remove('bump'); void count.offsetWidth; count.classList.add('bump');
+      button.classList.add('added');
+      button.firstChild.textContent = 'Added to bag ';
+      setTimeout(() => { button.classList.remove('added'); button.firstChild.textContent = 'Add to bag '; }, 1800);
       openBag();
     } catch (err) {
       error.textContent = err.message;
@@ -98,11 +103,6 @@ if (bar && !bar.classList.contains('scrolled')) {
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 }
-
-const reveal = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); reveal.unobserve(e.target); } });
-}, { rootMargin: '0px 0px -12% 0px' });
-document.querySelectorAll('.reveal').forEach(el => reveal.observe(el));
 
 const links = new Map([...document.querySelectorAll('[data-for]')].map(a => [a.dataset.for, a]));
 const spy = new IntersectionObserver(entries => {

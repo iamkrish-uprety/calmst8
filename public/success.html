@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex">
-  <meta name="theme-color" content="#E3E2DE">
+  <meta name="theme-color" content="#E5E2DC">
   <title>Order confirmed — CALMST8</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -68,6 +68,8 @@
   <script>document.querySelectorAll('.year').forEach(el => el.textContent = new Date().getFullYear());</script>
   <!-- footer:end -->
 
+  <script src="vendor/lenis.min.js" defer></script>
+  <script src="motion.js" defer></script>
   <script>
     try { localStorage.removeItem('calmst8-bag'); } catch {}
     const esc = v => String(v).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));

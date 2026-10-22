@@ -65,7 +65,7 @@ def page(slug, title, description, body):
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="{description}">
-  <meta name="theme-color" content="#E3E2DE">
+  <meta name="theme-color" content="#E5E2DC">
   <title>{title} — CALMST8</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -93,6 +93,8 @@ def page(slug, title, description, body):
   </main>
 
   {footer()}
+  <script src="vendor/lenis.min.js" defer></script>
+  <script src="motion.js" defer></script>
 </body>
 </html>
 '''

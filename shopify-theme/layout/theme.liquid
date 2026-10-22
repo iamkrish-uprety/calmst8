@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#E3E2DE">
+  <meta name="theme-color" content="#E5E2DC">
   <link rel="canonical" href="{{ canonical_url }}">
   <title>{{ page_title }}{% unless page_title contains shop.name %} — {{ shop.name }}{% endunless %}</title>
   {%- if page_description -%}<meta name="description" content="{{ page_description | escape }}">{%- endif -%}
@@ -36,6 +36,8 @@
       moneyFormat: {{ shop.money_format | json }}
     };
   </script>
+  <script src="{{ 'lenis.min.js' | asset_url }}" defer></script>
+  <script src="{{ 'calmst8-motion.js' | asset_url }}" defer></script>
   <script src="{{ 'calmst8.js' | asset_url }}" defer></script>
 </body>
 </html>

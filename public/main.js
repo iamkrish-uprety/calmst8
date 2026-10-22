@@ -60,6 +60,10 @@ function renderCollection() {
         return;
       }
       addToBag(form.dataset.id, size);
+      const button = form.querySelector('.add');
+      button.classList.add('added');
+      button.firstChild.textContent = 'Added to bag ';
+      setTimeout(() => { button.classList.remove('added'); button.firstChild.textContent = 'Add to bag '; }, 1800);
     });
   });
 }
@@ -72,6 +76,8 @@ function addToBag(id, size) {
   else lines.push({ id, size, qty: 1 });
   writeBag(lines);
   renderBag();
+  const count = $('#bag-count');
+  count.classList.remove('bump'); void count.offsetWidth; count.classList.add('bump');
   openBag();
 }
 
@@ -93,7 +99,7 @@ function renderBag() {
   $('#bag-subtotal').textContent = money(subtotal);
   $('#bag-items').innerHTML = lines.map((l, i) => {
     const p = product(l.id);
-    return `<li class="bag-item">
+    return `<li class="bag-item" style="--n:${i}">
       <img src="${esc(p.images[0])}" alt="" width="72" height="90">
       <div>
         <p class="bag-name">${esc(p.name)}</p>
@@ -152,16 +158,14 @@ $('#bag-checkout').addEventListener('click', async () => {
 });
 
 /* ---------- Page behaviour ---------- */
+// The header gets its backdrop once the hero wordmark has scrolled away
 const bar = document.querySelector('.bar');
 const onScroll = () => bar.classList.toggle('scrolled', window.scrollY > window.innerHeight * 0.45);
 window.addEventListener('scroll', onScroll, { passive: true });
 onScroll();
 
 function watchPieces() {
-  const reveal = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); reveal.unobserve(e.target); } });
-  }, { rootMargin: '0px 0px -12% 0px' });
-  document.querySelectorAll('.reveal').forEach(el => reveal.observe(el));
+  window.C8Motion?.refresh();
 
   // Highlight the piece in the index that is in the middle of the screen
   const links = new Map([...document.querySelectorAll('[data-for]')].map(a => [a.dataset.for, a]));

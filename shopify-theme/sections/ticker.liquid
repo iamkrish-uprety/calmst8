@@ -1,0 +1,19 @@
+{%- comment -%} Shop promises, moving slowly. The track is doubled so the loop is seamless. {%- endcomment -%}
+{%- assign items = section.settings.items | split: ',' -%}
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    {%- for round in (1..2) -%}
+      {%- for item in items -%}<span>{{ item | strip | escape }}</span>{%- endfor -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Ticker",
+  "settings": [
+    { "type": "textarea", "id": "items", "label": "Items, separated by commas", "default": "Stay grounded, UK delivery £2.99, 14-day returns, Checkout with Shop Pay, Protect your peace, Considered streetwear" }
+  ],
+  "presets": [{ "name": "Ticker" }]
+}
+{% endschema %}
