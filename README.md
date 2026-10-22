@@ -89,6 +89,7 @@ You need Node 18+ and a Cloudflare account. Run `npm install` once.
 - **New photos:** put them in `public/images/` and update `image` in `products.json`.
 - **Shipping worldwide:** add country codes to `shipping.countries` (for example `"IE", "FR", "US"`) and add a rate for each region in `shipping.rates`.
 - **Footer pages** (About, FAQ, Contact, policies): edit `content/pages/*.html`, then run `npm run pages`. This rebuilds the pages and the shared footer.
+- **After editing `styles.css`, `main.js` or `motion.js`:** run `npm run pages` too. It updates the `?v=` version tags on every page so visitors' browsers load the new files instead of old cached copies.
 - **Tests:** `npm test`.
 - **Local run:** `npx wrangler dev`. Put test keys in `.dev.vars`, which git ignores.
 

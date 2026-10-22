@@ -100,6 +100,21 @@ def page(slug, title, description, body):
 '''
 
 
+ASSETS = ['styles.css', 'main.js', 'motion.js', 'vendor/lenis.min.js']
+
+
+def bust_cache():
+    """Adds ?v=<content hash> to stylesheet and script links in every page, so browsers
+    never pair a new page with an old cached file."""
+    import hashlib
+    versions = {a: hashlib.sha1((PUBLIC / a).read_bytes()).hexdigest()[:8] for a in ASSETS}
+    for page in PUBLIC.glob('*.html'):
+        html = page.read_text()
+        for asset, v in versions.items():
+            html = re.sub(r'(["\'])' + re.escape(asset) + r'(\?v=[0-9a-f]+)?\1', lambda m: f'{m.group(1)}{asset}?v={v}{m.group(1)}', html)
+        page.write_text(html)
+
+
 def main():
     built = []
     for src in sorted(CONTENT.glob('*.html')):
@@ -123,7 +138,8 @@ def main():
             if '<!-- footer:start -->' not in html:
                 html = html.replace('\n  <script>', '\n  ' + footer() + '\n\n  <script>', 1)
         path.write_text(html)
-    print('Built', ', '.join(built))
+    bust_cache()
+    print('Built', ', '.join(built), '(asset versions updated)')
 
 
 if __name__ == '__main__':
