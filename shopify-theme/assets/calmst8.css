@@ -20,6 +20,7 @@
 html { scroll-behavior: smooth; scroll-padding-top: 72px; }
 body {
   margin: 0;
+  overflow-x: clip;   /* nothing (zooming film, wide strips) may push the page sideways */
   background: var(--studio);
   color: var(--ink);
   font: 400 16.5px/1.65 var(--body);
@@ -152,7 +153,11 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--denim); outline
 .filters button[aria-pressed="true"] { background: var(--ink); color: var(--studio); border-color: var(--ink); }
 .filters .n { margin-left: 6px; opacity: .55; }
 .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 72px 28px; margin-top: 56px; }
+.card { display: flex; flex-direction: column; }
 .card[hidden] { display: none; }
+/* Sizes and Add to bag sit on one line across a row, even when a name wraps */
+.card-info { flex: 1; display: flex; flex-direction: column; }
+.card-info .sizes { margin-top: auto; padding-top: 16px; }
 .card .piece-img { max-width: none; }
 .card .piece-img img { transition: opacity .7s var(--ease), scale 1.2s var(--ease-soft); }
 @media (hover: hover) { .card:hover .piece-img img { scale: 1.03; } }
@@ -161,7 +166,6 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--denim); outline
 .card h3 { font: 400 clamp(20px, 1.7vw, 26px)/1.15 var(--display); letter-spacing: -.01em; }
 .card .price { font: 400 14px/1 var(--mono); letter-spacing: .04em; white-space: nowrap; }
 .card-colour { margin-top: 6px; font-size: 14px; color: var(--graphite); }
-.card .sizes { margin-top: 16px; }
 .card .sizes legend { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
 .card .size span { min-width: 42px; height: 38px; font-size: 11px; }
 .card .add { max-width: none; padding: 15px 18px; }
@@ -461,7 +465,7 @@ html.lenis { scroll-behavior: auto; }
   .bar { grid-template-columns: 1fr auto; }
   .bar-nav { display: none; }
   .bar-mark { opacity: 1; transform: none; justify-self: start; }
-  .hero { height: auto; min-height: 0; overflow: visible; margin-top: 64px; background: none; color: var(--ink); }
+  .hero { height: auto; min-height: 0; overflow: clip; margin-top: 64px; background: none; color: var(--ink); }
   .hero-video { position: relative; inset: auto; aspect-ratio: 832 / 464; height: auto; }
   .hero-shade { display: none; }
   .hero-bar { position: static; flex-direction: column; align-items: stretch; gap: 18px; padding: 22px var(--gutter) 0; }
