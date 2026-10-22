@@ -104,22 +104,18 @@ if (bar && !bar.classList.contains('scrolled')) {
   onScroll();
 }
 
-const links = new Map([...document.querySelectorAll('[data-for]')].map(a => [a.dataset.for, a]));
-const spy = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (!e.isIntersecting) return;
-    links.forEach(a => a.classList.remove('active'));
-    links.get(e.target.id)?.classList.add('active');
+// Shop filters (by product type)
+document.querySelectorAll('[data-filters]').forEach(group => {
+  group.addEventListener('click', e => {
+    const btn = e.target.closest('[data-filter]');
+    if (!btn) return;
+    const slug = btn.dataset.filter;
+    group.querySelectorAll('[data-filter]').forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
+    group.closest('.shop').querySelectorAll('.card').forEach(card => { card.hidden = slug !== 'all' && card.dataset.cat !== slug; });
+    window.C8Motion?.refresh();
   });
-}, { rootMargin: '-45% 0px -45% 0px' });
-document.querySelectorAll('.piece').forEach(el => spy.observe(el));
+});
 
-// The hero entrance plays when the hero comes into view (it can sit below the film)
-const start = () => {
-  const hero = document.querySelector('.hero');
-  const go = () => requestAnimationFrame(() => document.documentElement.classList.add('loaded'));
-  if (!hero || !('IntersectionObserver' in window)) return go();
-  const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { go(); io.disconnect(); } }, { threshold: 0.25 });
-  io.observe(hero);
-};
+// The hero entrance plays once the fonts are ready
+const start = () => requestAnimationFrame(() => document.documentElement.classList.add('loaded'));
 document.fonts ? document.fonts.ready.then(start) : window.addEventListener('load', start);

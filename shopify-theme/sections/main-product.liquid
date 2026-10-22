@@ -13,7 +13,7 @@
     {%- endfor -%}
   </div>
   <div class="product-info">
-    <a class="link back" href="{{ routes.root_url }}#pieces"><span aria-hidden="true">←</span> All pieces</a>
+    <a class="link back" href="{{ routes.root_url }}#shop"><span aria-hidden="true">←</span> Shop all</a>
     {% render 'piece-form', product: product %}
     <p class="index-note">{{ settings.lead_time | escape }}</p>
   </div>

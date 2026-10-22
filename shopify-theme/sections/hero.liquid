@@ -1,52 +1,40 @@
-{%- comment -%} The wordmark is the studio wall; the looks stand in front of it. {%- endcomment -%}
-{%- liquid
-  assign word = section.settings.wordmark | default: 'CALMST8'
-  assign chars = word | split: ''
--%}
-<section class="hero" id="looks" aria-label="{{ word | escape }}">
-  <h1 class="hero-mark" aria-label="{{ word | escape }}">
-    {%- for c in chars -%}<span>{{ c }}</span>{%- endfor -%}
-  </h1>
-  <div class="hero-looks">
-    {%- for block in section.blocks -%}
-      <figure class="look {% if forloop.index == 2 %}look-centre{% else %}look-side{% endif %}" {{ block.shopify_attributes }}>
-        {%- if block.settings.image != blank -%}
-          {{ block.settings.image | image_url: width: 1200 | image_tag: alt: block.settings.image.alt, sizes: '(min-width: 700px) 33vw, 80vw', widths: '400, 600, 800, 1200' }}
-        {%- elsif block.settings.fallback != blank -%}
-          <img src="{{ block.settings.fallback | asset_url }}" alt="{{ block.settings.title | escape }}" width="512" height="640">
-        {%- endif -%}
-        <figcaption>{{ block.settings.title | escape }} <i>{{ block.settings.colour | escape }}</i></figcaption>
-      </figure>
-    {%- endfor -%}
-  </div>
-  <div class="hero-foot">
-    <p class="hero-line">{{ section.settings.line | escape }} <em>{{ section.settings.line_italic | escape }}</em></p>
-    <a class="link" href="#pieces">{{ section.settings.link_label | escape }} <span aria-hidden="true">↓</span></a>
+{%- comment -%}
+  Hero: the brand film, full width, muted until the visitor turns the sound on.
+  Pick a film in the theme editor, or the built-in CALMST8 film is used.
+{%- endcomment -%}
+<section class="hero" aria-labelledby="hero-title-{{ section.id }}">
+  {%- if section.settings.video != blank -%}
+    {{ section.settings.video | video_tag: autoplay: true, muted: true, loop: true, playsinline: true, controls: false, preload: 'auto', class: 'hero-video', image_size: '1600x' }}
+  {%- else -%}
+    <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="{{ 'calmst8-film-poster.jpg' | asset_url }}">
+      <source src="{{ 'calmst8-film.mp4' | asset_url }}" type="video/mp4">
+    </video>
+  {%- endif -%}
+  <div class="hero-shade" aria-hidden="true"></div>
+  <h1 class="visually-hidden" id="hero-title-{{ section.id }}">{{ shop.name }}, {{ section.settings.line | escape }}</h1>
+  <div class="hero-bar">
+    <div>
+      <p class="hero-line">{{ section.settings.line | escape }} <em>{{ section.settings.line_italic | escape }}</em></p>
+      <p class="hero-sub">{{ section.settings.sub | escape }}</p>
+    </div>
+    <div class="hero-actions">
+      <a class="button" href="#shop">{{ section.settings.button | escape }} <span aria-hidden="true">↓</span></a>
+      <button class="film-btn" type="button" id="film-sound" aria-pressed="false">Sound on</button>
+      <button class="film-btn" type="button" id="film-play" aria-pressed="true">Pause</button>
+    </div>
   </div>
 </section>
 
 {% schema %}
 {
-  "name": "Hero",
-  "max_blocks": 3,
+  "name": "Hero film",
   "settings": [
-    { "type": "text", "id": "wordmark", "label": "Wordmark", "default": "CALMST8" },
-    { "type": "text", "id": "line", "label": "Line", "default": "Calm state." },
-    { "type": "text", "id": "line_italic", "label": "Line, italic part", "default": "Built for everyday." },
-    { "type": "text", "id": "link_label", "label": "Link label", "default": "Shop the collection" }
+    { "type": "video", "id": "video", "label": "Film", "info": "Landscape (16:9) works best. Leave empty to use the built-in CALMST8 film." },
+    { "type": "text", "id": "line", "label": "Line", "default": "Considered streetwear." },
+    { "type": "text", "id": "line_italic", "label": "Line, italic part", "default": "Calm state." },
+    { "type": "text", "id": "sub", "label": "Small print", "default": "Jeans, hoodies and tees · UK delivery £2.99" },
+    { "type": "text", "id": "button", "label": "Button label", "default": "Shop the collection" }
   ],
-  "blocks": [
-    {
-      "type": "look",
-      "name": "Look",
-      "settings": [
-        { "type": "image_picker", "id": "image", "label": "Photo", "info": "Use a full-length photo on a light grey studio background. The middle look is shown largest." },
-        { "type": "text", "id": "fallback", "label": "Theme file used when no photo is picked" },
-        { "type": "text", "id": "title", "label": "Piece", "default": "Washed hoodie" },
-        { "type": "text", "id": "colour", "label": "Colour", "default": "Charcoal" }
-      ]
-    }
-  ],
-  "presets": [{ "name": "Hero" }]
+  "presets": [{ "name": "Hero film" }]
 }
 {% endschema %}

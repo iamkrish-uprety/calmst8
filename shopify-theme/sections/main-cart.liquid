@@ -3,7 +3,7 @@
   <h1>{% if cart.item_count == 0 %}Your bag is empty.{% else %}Ready when you are.{% endif %}</h1>
   {%- if cart.item_count == 0 -%}
     <p class="simple-lead">Choose a piece and a size to add it.</p>
-    <a class="button" href="{{ routes.root_url }}#pieces">Shop the collection <span aria-hidden="true">→</span></a>
+    <a class="button" href="{{ routes.root_url }}#shop">Shop the collection <span aria-hidden="true">→</span></a>
   {%- else -%}
     <form action="{{ routes.cart_url }}" method="post">
       <ul class="simple-list">

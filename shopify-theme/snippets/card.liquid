@@ -1,0 +1,33 @@
+{%- comment -%}
+  Product card for the shop grid: photos, name, price, colour, sizes and Add to bag.
+  The first image should be the flat lay; the second (worn) fades in on hover or swipes in on phones.
+  Colour comes from the product metafield custom.colour (single line text), if set.
+  Usage: {% render 'card', product: product %}
+{%- endcomment -%}
+{%- assign colour = product.metafields.custom.colour.value -%}
+<article class="card" id="{{ product.handle }}" data-cat="{{ product.type | handleize | default: 'other' }}" aria-labelledby="{{ product.handle }}-name">
+  <a class="piece-img{% if product.images.size > 1 %} has-alt{% endif %}" href="{{ product.url }}" tabindex="-1" aria-hidden="true">
+    {%- for image in product.images limit: 2 -%}
+      {{ image | image_url: width: 1000 | image_tag: loading: 'lazy', alt: '', sizes: '(min-width: 960px) 31vw, (min-width: 700px) 47vw, 46vw', widths: '400, 600, 800, 1000' }}
+    {%- endfor -%}
+  </a>
+  {%- form 'product', product, class: 'card-info', novalidate: 'novalidate', data-product-form: '' -%}
+    <div class="card-row">
+      <h3 id="{{ product.handle }}-name"><a href="{{ product.url }}">{{ product.title | escape }}</a></h3>
+      <p class="price">{{ product.price | money }}</p>
+    </div>
+    {%- if colour != blank -%}<p class="card-colour">{{ colour | escape }}</p>{%- endif -%}
+    {%- if product.has_only_default_variant -%}
+      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+    {%- else -%}
+      {% render 'size-options', product: product %}
+    {%- endif -%}
+    <p class="size-error" role="alert"></p>
+    <button class="add" type="submit" {% unless product.available %}disabled{% endunless %}>
+      {%- if product.available -%}Add to bag <span aria-hidden="true">+</span>{%- else -%}Sold out{%- endif -%}
+    </button>
+    {%- if product.description != blank -%}
+      <details class="card-more"><summary>Details</summary><p>{{ product.description | strip_html | truncatewords: 40 }}</p></details>
+    {%- endif -%}
+  {%- endform -%}
+</article>

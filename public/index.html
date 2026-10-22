@@ -24,11 +24,11 @@
     </filter>
   </svg>
 
-  <a class="skip" href="#pieces">Skip to the collection</a>
+  <a class="skip" href="#shop">Skip to the shop</a>
 
   <header class="bar">
     <nav class="bar-nav" aria-label="Main">
-      <a href="#pieces">Collection</a>
+      <a href="#shop">Shop</a>
       <a href="#details">Details</a>
       <a href="#order">How to order</a>
     </nav>
@@ -37,41 +37,23 @@
   </header>
 
   <main id="top">
-    <!-- Film: the brand film opens the page, muted until the visitor turns the sound on -->
-    <section class="film" aria-label="CALMST8 film">
-      <video class="film-video" autoplay muted loop playsinline preload="auto" poster="video/calmst8-film-poster.jpg">
+    <!-- Hero: the brand film, full width -->
+    <section class="hero" aria-labelledby="hero-title">
+      <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="video/calmst8-film-poster.jpg">
         <source src="video/calmst8-film.mp4" type="video/mp4">
       </video>
-      <div class="film-shade" aria-hidden="true"></div>
-      <div class="film-ui">
-        <button class="film-btn" type="button" id="film-sound" aria-pressed="false">Sound on</button>
-        <button class="film-btn" type="button" id="film-play" aria-pressed="true">Pause</button>
-        <a class="film-cue" href="#looks">The collection <span aria-hidden="true">↓</span></a>
-      </div>
-    </section>
-
-    <!-- Hero: the wordmark is the studio wall; the looks stand in front of it -->
-    <section class="hero" id="looks" aria-label="CALMST8">
-      <h1 class="hero-mark" aria-label="CALMST8">
-        <span>C</span><span>A</span><span>L</span><span>M</span><span>S</span><span>T</span><span>8</span>
-      </h1>
-      <div class="hero-looks">
-        <figure class="look look-side">
-          <img src="images/brown-hoodie.jpg" alt="Umber Core Hoodie, worn with washed blue cross jeans" width="480" height="552">
-          <figcaption>Umber Core Hoodie <i>Umber</i></figcaption>
-        </figure>
-        <figure class="look look-centre">
-          <img src="images/charcoal-hoodie.jpg" alt="Washed Charcoal Hoodie, worn with Obsidian Cross Jeans" width="520" height="640">
-          <figcaption>Washed Charcoal Hoodie <i>Charcoal</i></figcaption>
-        </figure>
-        <figure class="look look-side">
-          <img src="images/shop/members-only-oversized-tee-black-3.jpg" alt="Members Only oversized tee seen from the back, worn with washed blue cross jeans" width="960" height="1200">
-          <figcaption>Members Only tee <i>Black</i></figcaption>
-        </figure>
-      </div>
-      <div class="hero-foot">
-        <p class="hero-line">Calm state. <em>Built for everyday.</em></p>
-        <a class="link" href="#pieces">Shop the collection <span aria-hidden="true">↓</span></a>
+      <div class="hero-shade" aria-hidden="true"></div>
+      <h1 class="visually-hidden" id="hero-title">CALMST8, considered streetwear</h1>
+      <div class="hero-bar">
+        <div>
+          <p class="hero-line">Considered streetwear. <em>Calm state.</em></p>
+          <p class="hero-sub">Jeans, hoodies and tees · UK delivery £2.99</p>
+        </div>
+        <div class="hero-actions">
+          <a class="button" href="#shop">Shop the collection <span aria-hidden="true">↓</span></a>
+          <button class="film-btn" type="button" id="film-sound" aria-pressed="false">Sound on</button>
+          <button class="film-btn" type="button" id="film-play" aria-pressed="true">Pause</button>
+        </div>
       </div>
     </section>
 
@@ -82,20 +64,22 @@
       </div>
     </div>
 
+    <!-- Shop: the clothes come first -->
+    <section class="shop" id="shop" aria-labelledby="shop-title">
+      <div class="shop-head">
+        <div>
+          <p class="label">The collection</p>
+          <h2 id="shop-title">Shop all. <em>Six pieces.</em></h2>
+        </div>
+        <div class="filters" id="filters" role="group" aria-label="Filter by category"></div>
+      </div>
+      <div class="grid" id="grid"></div>
+      <p class="shop-note" id="lead-note">Delivered in about 2 weeks. UK delivery £2.99.</p>
+    </section>
+
     <section class="intro" aria-label="About CALMST8">
       <p class="intro-big">Stay grounded.<br><em>Protect your peace.</em></p>
       <p class="intro-small">CALMST8 makes streetwear around one idea: stay grounded. Graphic tees, relaxed hoodies and cross-detail denim, designed for everyday wear and made to keep your style effortless and understated.</p>
-    </section>
-
-    <!-- Collection: sticky index on the left, the looks scroll past on the right -->
-    <section class="pieces" id="pieces" aria-labelledby="pieces-title">
-      <div class="pieces-index">
-        <p class="label">The collection</p>
-        <h2 id="pieces-title">Six pieces.<br><em>Nothing extra.</em></h2>
-        <ol class="index-list" id="index-list"></ol>
-        <p class="index-note" id="lead-note">Delivered in about 2 weeks.</p>
-      </div>
-      <div class="pieces-list" id="pieces-list"></div>
     </section>
 
     <section class="details" id="details" aria-labelledby="details-title">
@@ -126,7 +110,7 @@
         <li><span class="step-n">3</span><h3>We send it to you</h3><p>You get a confirmation email straight away, and your order arrives in about 2 weeks. Returns are accepted within 14 days.</p></li>
       </ol>
       <div class="order-actions">
-        <a class="button" href="#pieces">Shop the collection <span aria-hidden="true">↑</span></a>
+        <a class="button" href="#shop">Shop the collection <span aria-hidden="true">↑</span></a>
         <a class="link" href="https://ig.me/m/calmst8.world" target="_blank" rel="noopener">Questions? Message us on Instagram <span aria-hidden="true">↗</span></a>
       </div>
     </section>
@@ -137,10 +121,10 @@
     <nav class="foot-links" aria-label="Footer">
       <div class="foot-group">
         <p class="label">Shop</p>
-        <a href="./#pieces">All pieces</a>
-        <a href="./#heaven-wash-cross-jeans">Jeans</a>
-        <a href="./#washed-charcoal-hoodie">Hoodies</a>
-        <a href="./#members-only-oversized-tee-black">T-shirts</a>
+        <a href="./#shop">Shop all</a>
+        <a href="./#jeans">Jeans</a>
+        <a href="./#hoodies">Hoodies</a>
+        <a href="./#t-shirts">T-shirts</a>
       </div>
       <div class="foot-group">
         <p class="label">Help</p>

@@ -7,33 +7,30 @@
   const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
   const $$ = (sel, scope = document) => [...scope.querySelectorAll(sel)];
 
-  /* ---------- Brand film: sound and pause controls (runs even with reduced motion) ---------- */
-  const film = document.querySelector('.film');
-  const video = film?.querySelector('video');
+  /* ---------- Hero film: sound and pause controls (run even with reduced motion) ---------- */
+  const hero = document.querySelector('.hero');
+  const video = hero?.querySelector('.hero-video');
+  const bar = document.querySelector('.bar');
   if (video) {
-    const soundBtn = document.getElementById('film-sound');
-    const playBtn = document.getElementById('film-play');
-    const setPlaying = playing => {
-      playBtn.textContent = playing ? 'Pause' : 'Play film';
-      playBtn.setAttribute('aria-pressed', String(playing));
-    };
+    const sound = document.getElementById('film-sound');
+    const play = document.getElementById('film-play');
+    const setPlaying = on => { play.textContent = on ? 'Pause' : 'Play film'; play.setAttribute('aria-pressed', String(on)); };
     if (reduce) { video.removeAttribute('autoplay'); video.pause(); setPlaying(false); }
     video.addEventListener('play', () => setPlaying(true));
     video.addEventListener('pause', () => setPlaying(false));
-    playBtn.addEventListener('click', () => (video.paused ? video.play() : video.pause()));
-    soundBtn.addEventListener('click', () => {
+    play.addEventListener('click', () => (video.paused ? video.play() : video.pause()));
+    sound.addEventListener('click', () => {
       video.muted = !video.muted;
       if (!video.muted && video.paused) video.play();
-      soundBtn.textContent = video.muted ? 'Sound on' : 'Sound off';
-      soundBtn.setAttribute('aria-pressed', String(!video.muted));
+      sound.textContent = video.muted ? 'Sound on' : 'Sound off';
+      sound.setAttribute('aria-pressed', String(!video.muted));
     });
-    // Pause when the film is off screen; the header turns light while it sits over the film
-    const bar = document.querySelector('.bar');
+    // Light header while it sits over the film; pause the film when it is off screen
     new IntersectionObserver(([e]) => {
-      bar?.classList.toggle('over-film', e.intersectionRatio > 0.12);
-      if (!e.isIntersecting && !video.paused) { video.pause(); film.dataset.autopaused = '1'; }
-      else if (e.isIntersecting && film.dataset.autopaused) { delete film.dataset.autopaused; video.play(); }
-    }, { threshold: [0, 0.12] }).observe(film);
+      bar?.classList.toggle('over-film', e.intersectionRatio > 0.15);
+      if (!e.isIntersecting) { if (!video.paused) { video.pause(); hero.dataset.autopaused = '1'; } }
+      else if (hero.dataset.autopaused) { delete hero.dataset.autopaused; video.play(); }
+    }, { threshold: [0, 0.15] }).observe(hero);
   }
 
   if (reduce) {
@@ -70,10 +67,10 @@
   }
 
   /* ---------- Reveals ---------- */
-  const WORDS = '.intro-big, .pieces-index h2, .details-head h2, .order-head h2, .doc h1, .thanks h1, .simple-page h1';
-  const FADE = '.intro-small, .piece-tag > *, .index-list li, .index-note, .steps li, .order-actions, .detail figcaption, .foot-group, .doc-body > *, .doc > .label, .thanks > p, .thanks-items, .pieces-index > .label, .details-head > .label, .order-head > .label';
+  const WORDS = '.intro-big, .shop-head h2, .details-head h2, .order-head h2, .doc h1, .thanks h1, .simple-page h1';
+  const FADE = '.intro-small, .card-info, .filters, .shop-note, .steps li, .order-actions, .detail figcaption, .foot-group, .doc-body > *, .doc > .label, .thanks > p, .thanks-items, .shop-head .label, .details-head > .label, .order-head > .label';
   const CURTAIN = '.piece-img, .detail';
-  const LINES = '.piece-tag, .hero-foot, .pieces-index, .foot-links';
+  const LINES = '.foot-links';
 
   function splitWords(el) {
     if (el.dataset.split) return;
@@ -141,13 +138,8 @@
   }
 
   /* ---------- Scroll-linked: header, hero depth, parallax ---------- */
-  const bar = document.querySelector('.bar');
-  const hero = document.querySelector('.hero');
-  const mark = document.querySelector('.hero-mark');
-  const looks = $$('.look img');
   const drift = [...$$('.detail-a img').map(el => [el, 0.05]), ...$$('.detail-b img').map(el => [el, -0.07])];
   let lastY = window.scrollY;
-  let mouse = { x: 0, y: 0, tx: 0, ty: 0 };
 
   function onFrame() {
     const y = window.scrollY;
@@ -161,26 +153,9 @@
     }
     lastY = y;
 
-    mouse.x += (mouse.tx - mouse.x) * 0.06;
-    mouse.y += (mouse.ty - mouse.y) * 0.06;
-
-    // Hero depth, measured from the hero's own top so it works below the film
-    const past = hero ? -hero.getBoundingClientRect().top : y;
-    if (mark && past > -vh && past < vh * 1.3) {
-      const p = Math.max(0, past);
-      mark.style.translate = `${-mouse.x * 14}px ${p * 0.32}px`;
-      mark.style.opacity = String(Math.max(0, 1 - p / (vh * 0.85)));
-      looks.forEach((img, i) => {
-        const depth = i === 1 ? 1 : 1.7;
-        img.style.translate = `${mouse.x * 9 * depth}px ${-p * 0.07 * depth + mouse.y * 5}px`;
-      });
-    }
 
     // The film settles back slightly as it scrolls away
-    if (video && y < vh * 1.2) {
-      video.style.scale = String(1 + Math.min(y / vh, 1) * 0.06);
-      video.style.opacity = String(1 - Math.min(y / vh, 1) * 0.35);
-    }
+    if (video && y < vh * 1.2) video.style.scale = String(1 + Math.min(y / vh, 1) * 0.06);
 
     drift.forEach(([el, speed]) => {
       const r = el.getBoundingClientRect();
@@ -191,14 +166,6 @@
     requestAnimationFrame(onFrame);
   }
   requestAnimationFrame(onFrame);
-
-  if (finePointer && mark && hero) {
-    hero.addEventListener('pointermove', e => {
-      mouse.tx = (e.clientX / innerWidth) * 2 - 1;
-      mouse.ty = (e.clientY / innerHeight) * 2 - 1;
-    });
-    hero.addEventListener('pointerleave', () => { mouse.tx = 0; mouse.ty = 0; });
-  }
 
   /* ---------- Cursor label over photos that have a worn view ---------- */
   if (finePointer) {

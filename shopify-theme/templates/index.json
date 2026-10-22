@@ -2,37 +2,6 @@
   "sections": {
     "hero": {
       "type": "hero",
-      "blocks": {
-        "look1": {
-          "type": "look",
-          "settings": {
-            "fallback": "brown-hoodie.jpg",
-            "title": "Umber Core Hoodie",
-            "colour": "Umber"
-          }
-        },
-        "look2": {
-          "type": "look",
-          "settings": {
-            "fallback": "charcoal-hoodie.jpg",
-            "title": "Washed Charcoal Hoodie",
-            "colour": "Charcoal"
-          }
-        },
-        "look3": {
-          "type": "look",
-          "settings": {
-            "fallback": "members-only-oversized-tee-black-3.jpg",
-            "title": "Members Only tee",
-            "colour": "Black"
-          }
-        }
-      },
-      "block_order": [
-        "look1",
-        "look2",
-        "look3"
-      ],
       "settings": {}
     },
     "intro": {
@@ -45,9 +14,7 @@
     },
     "pieces": {
       "type": "featured-pieces",
-      "settings": {
-        "heading": "Six pieces."
-      }
+      "settings": {}
     },
     "details": {
       "type": "details",
@@ -113,18 +80,13 @@
     "ticker": {
       "type": "ticker",
       "settings": {}
-    },
-    "film": {
-      "type": "film",
-      "settings": {}
     }
   },
   "order": [
-    "film",
     "hero",
     "ticker",
-    "intro",
     "pieces",
+    "intro",
     "details",
     "order"
   ]

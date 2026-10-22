@@ -1,20 +1,21 @@
-<section class="pieces page-top" id="pieces">
-  <div class="pieces-index">
-    <p class="label">Collection</p>
-    <h2>{{ collection.title | escape }}</h2>
-    {%- if collection.description != blank -%}<div class="index-note">{{ collection.description }}</div>{%- endif -%}
-    <p class="index-note">{{ settings.lead_time | escape }}</p>
+<section class="shop page-top" id="shop">
+  <div class="shop-head">
+    <div>
+      <p class="label">Collection</p>
+      <h2>{{ collection.title | escape }}</h2>
+    </div>
   </div>
-  <div class="pieces-list">
-    {%- paginate collection.products by 24 -%}
+  {%- paginate collection.products by 24 -%}
+    <div class="grid">
       {%- for product in collection.products -%}
-        {% render 'piece', product: product %}
+        {% render 'card', product: product %}
       {%- else -%}
-        <p class="index-note">There are no pieces in this collection yet.</p>
+        <p class="shop-note">There are no pieces in this collection yet.</p>
       {%- endfor -%}
-      {%- if paginate.pages > 1 -%}<nav class="pagination">{{ paginate | default_pagination }}</nav>{%- endif -%}
-    {%- endpaginate -%}
-  </div>
+    </div>
+    {%- if paginate.pages > 1 -%}<nav class="pagination">{{ paginate | default_pagination }}</nav>{%- endif -%}
+  {%- endpaginate -%}
+  <p class="shop-note">{{ settings.lead_time | escape }}</p>
 </section>
 
 {% schema %}

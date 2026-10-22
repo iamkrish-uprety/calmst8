@@ -22,34 +22,43 @@ let memoryBag = readBag();
 const bag = () => memoryBag.filter(line => product(line.id)?.sizes.includes(line.size));
 
 /* ---------- Collection ---------- */
-function renderCollection() {
-  $('#index-list').innerHTML = catalog.products.map(p => `
-    <li><a href="#${p.id}" data-for="${p.id}"><span class="n">${esc(p.name)}</span><span class="c">${esc(p.colour)}</span></a></li>`).join('');
+// Categories for the filter bar, in shop order (Jeans, Hoodies, T-shirts)
+const CATEGORY_SLUG = { 'Jeans': 'jeans', 'Hoodie': 'hoodies', 'T-shirt': 't-shirts' };
+const CATEGORY_LABEL = { 'Jeans': 'Jeans', 'Hoodie': 'Hoodies', 'T-shirt': 'T-shirts' };
 
-  $('#pieces-list').innerHTML = catalog.products.map(p => `
-    <article class="piece reveal" id="${p.id}" aria-labelledby="${p.id}-name">
-      <div class="piece-media">
-        <div class="piece-img${p.images.length > 1 ? ' has-alt' : ''}">
-          ${p.images.map((src, i) => `<img src="${esc(src)}" alt="${esc(p.name)}, ${esc(p.colour.toLowerCase())}${i ? ', worn' : ''}" loading="lazy">`).join('')}
-        </div>
-        ${p.images.length > 1 ? '<p class="swipe-hint label" aria-hidden="true">Swipe for more photos</p>' : ''}
+function renderCollection() {
+  const kinds = [...new Set(catalog.products.map(p => p.kind))];
+  $('#filters').innerHTML = [
+    `<button type="button" data-filter="all" aria-pressed="true">All<span class="n">${catalog.products.length}</span></button>`,
+    ...kinds.map(k => `<button type="button" data-filter="${esc(CATEGORY_SLUG[k] || k)}" aria-pressed="false">${esc(CATEGORY_LABEL[k] || k)}<span class="n">${catalog.products.filter(p => p.kind === k).length}</span></button>`),
+  ].join('');
+
+  $('#grid').innerHTML = catalog.products.map(p => `
+    <article class="card" id="${p.id}" data-cat="${esc(CATEGORY_SLUG[p.kind] || p.kind)}" aria-labelledby="${p.id}-name">
+      <div class="piece-img${p.images.length > 1 ? ' has-alt' : ''}">
+        ${p.images.map((src, i) => `<img src="${esc(src)}" alt="${esc(p.name)}, ${esc(p.colour.toLowerCase())}${i ? ', worn' : ''}" loading="lazy">`).join('')}
       </div>
-      <form class="piece-tag" data-id="${p.id}" novalidate>
-        <p class="label">${esc(p.kind)}</p>
-        <h3 id="${p.id}-name">${esc(p.name)} <em>${esc(p.colour)}</em></h3>
-        <p class="price">${money(p.price)}</p>
-        <p class="desc">${esc(p.desc)}</p>
+      <form class="card-info" data-id="${p.id}" novalidate>
+        <div class="card-row">
+          <h3 id="${p.id}-name">${esc(p.name)}</h3>
+          <p class="price">${money(p.price)}</p>
+        </div>
+        <p class="card-colour">${esc(p.colour)}</p>
         <fieldset class="sizes">
-          <legend class="label">Size</legend>
+          <legend>Size</legend>
           ${p.sizes.map(s => `<label class="size"><input type="radio" name="size" value="${esc(s)}"><span>${esc(s)}</span></label>`).join('')}
         </fieldset>
         <p class="size-error" role="alert"></p>
         <button class="add" type="submit">Add to bag <span aria-hidden="true">+</span></button>
-        ${p.post ? `<a class="link" href="https://www.instagram.com/calmst8.world/p/${esc(p.post)}/" target="_blank" rel="noopener">See it on Instagram <span aria-hidden="true">↗</span></a>` : ''}
+        <details class="card-more"><summary>Details</summary><p>${esc(p.desc)}</p></details>
       </form>
     </article>`).join('');
 
-  document.querySelectorAll('.piece-tag').forEach(form => {
+  $('#filters').addEventListener('click', e => {
+    const btn = e.target.closest('[data-filter]');
+    if (btn) applyFilter(btn.dataset.filter);
+  });
+  document.querySelectorAll('.card-info').forEach(form => {
     form.addEventListener('change', () => { form.querySelector('.size-error').textContent = ''; });
     form.addEventListener('submit', e => {
       e.preventDefault();
@@ -67,6 +76,21 @@ function renderCollection() {
     });
   });
 }
+
+function applyFilter(slug) {
+  document.querySelectorAll('#filters [data-filter]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.filter === slug)));
+  document.querySelectorAll('.card').forEach(card => { card.hidden = slug !== 'all' && card.dataset.cat !== slug; });
+  window.C8Motion?.refresh();
+}
+
+// Links like ./#jeans open the shop with that category selected
+function filterFromHash() {
+  const slug = location.hash.slice(1);
+  if (!document.querySelector(`#filters [data-filter="${CSS.escape(slug)}"]`)) return;
+  applyFilter(slug);
+  document.getElementById('shop').scrollIntoView();
+}
+window.addEventListener('hashchange', filterFromHash);
 
 /* ---------- Bag ---------- */
 function addToBag(id, size) {
@@ -158,36 +182,14 @@ $('#bag-checkout').addEventListener('click', async () => {
 });
 
 /* ---------- Page behaviour ---------- */
-// The header gets its backdrop once the hero wordmark has scrolled away
+// The header gets its backdrop once the hero has mostly scrolled away
 const bar = document.querySelector('.bar');
 const onScroll = () => bar.classList.toggle('scrolled', window.scrollY > window.innerHeight * 0.45);
 window.addEventListener('scroll', onScroll, { passive: true });
 onScroll();
 
-function watchPieces() {
-  window.C8Motion?.refresh();
-
-  // Highlight the piece in the index that is in the middle of the screen
-  const links = new Map([...document.querySelectorAll('[data-for]')].map(a => [a.dataset.for, a]));
-  const spy = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      links.forEach(a => a.classList.remove('active'));
-      links.get(e.target.id)?.classList.add('active');
-    });
-  }, { rootMargin: '-45% 0px -45% 0px' });
-  document.querySelectorAll('.piece').forEach(el => spy.observe(el));
-}
-
-
-// The hero entrance plays when the hero comes into view (it sits below the film)
-const start = () => {
-  const hero = document.querySelector('.hero');
-  const go = () => requestAnimationFrame(() => document.documentElement.classList.add('loaded'));
-  if (!hero || !('IntersectionObserver' in window)) return go();
-  const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { go(); io.disconnect(); } }, { threshold: 0.25 });
-  io.observe(hero);
-};
+// The hero entrance plays once the fonts are ready
+const start = () => requestAnimationFrame(() => document.documentElement.classList.add('loaded'));
 document.fonts ? document.fonts.ready.then(start) : window.addEventListener('load', start);
 
 /* ---------- Boot ---------- */
@@ -199,7 +201,8 @@ document.fonts ? document.fonts.ready.then(start) : window.addEventListener('loa
   $('#bag-lead').textContent = catalog.leadTime;
   renderCollection();
   renderBag();
-  watchPieces();
+  window.C8Motion?.refresh();
+  filterFromHash();
   if (location.hash === '#bag') openBag();
   // Checkout needs the backend; on a static preview (e.g. GitHub Pages) the bag falls back to Instagram.
   try {

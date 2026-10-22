@@ -3,7 +3,7 @@
     {%- for link in section.settings.menu.links -%}
       <a href="{{ link.url }}">{{ link.title | escape }}</a>
     {%- else -%}
-      <a href="{{ routes.root_url }}#pieces">Collection</a>
+      <a href="{{ routes.root_url }}#shop">Shop</a>
       <a href="{{ routes.root_url }}#details">Details</a>
       <a href="{{ routes.root_url }}#order">How to order</a>
     {%- endfor -%}
