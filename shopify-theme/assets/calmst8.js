@@ -65,7 +65,10 @@ dialog?.addEventListener('click', async e => {
 
 document.querySelectorAll('[data-product-form]').forEach(form => {
   const error = form.querySelector('.size-error');
-  form.addEventListener('change', () => { if (error) error.textContent = ''; });
+  form.addEventListener('change', () => {
+    if (error) error.textContent = '';
+    form.classList.toggle('has-size', Boolean(form.querySelector('input[name="id"]:checked')));
+  });
   form.addEventListener('submit', async e => {
     e.preventDefault();
     const choice = form.querySelector('input[name="id"]:checked') || form.querySelector('input[type="hidden"][name="id"]');

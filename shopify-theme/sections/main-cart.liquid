@@ -24,6 +24,9 @@
         <button class="button" type="submit" name="checkout">Check out <span aria-hidden="true">→</span></button>
         <button class="link" type="submit" name="update">Update bag</button>
       </div>
+      {%- if additional_checkout_buttons -%}
+        <div class="express-checkout">{{ content_for_additional_checkout_buttons }}</div>
+      {%- endif -%}
     </form>
   {%- endif -%}
 </section>

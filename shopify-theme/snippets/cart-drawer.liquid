@@ -10,6 +10,9 @@
     <p class="bag-row"><span>Subtotal</span><span id="bag-subtotal">{{ cart.total_price | money }}</span></p>
     <p class="bag-note">Delivery is added at checkout. {{ settings.lead_time | escape }}</p>
     <a class="button bag-checkout" href="{{ routes.root_url }}checkout">Check out <span aria-hidden="true">→</span></a>
+    {%- if additional_checkout_buttons -%}
+      <div class="express-checkout">{{ content_for_additional_checkout_buttons }}</div>
+    {%- endif -%}
     <p class="bag-error" id="bag-error" role="alert"></p>
   </div>
 </dialog>

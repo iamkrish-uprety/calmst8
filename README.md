@@ -113,7 +113,8 @@ You need Node 18+ and a Cloudflare account. Run `npm install` once.
    - Owner: order emails are on by default.
    - Customer: Shopify sends the order confirmation, and a shipping email with tracking once the supplier ships.
    - Add the delivery time to the **Order confirmation** template.
-9. **Theme editor:** pick the hero photos, the detail photos and the home page collection. The delivery wording is in Theme settings → Shop.
+9. **Shop Pay ("Buy with Shop"):** go to Settings → Payments, turn on **Shopify Payments**, then tick **Shop Pay**. The theme shows the Shop Pay button on product pages (once a size is picked), in the bag and on the cart page. Apple Pay and Google Pay appear in the same place if they're enabled.
+10. **Theme editor:** pick the hero photos, the detail photos and the home page collection. The delivery wording is in Theme settings → Shop.
 
 ---
 

@@ -3,7 +3,13 @@
   assign colour = product.metafields.custom.colour.value
   assign option_name = product.options.first | default: 'Size'
 -%}
-{%- form 'product', product, class: 'piece-tag', novalidate: 'novalidate', data-product-form: '' -%}
+{%- liquid
+  assign form_class = 'piece-tag'
+  if product.has_only_default_variant
+    assign form_class = 'piece-tag has-size'
+  endif
+-%}
+{%- form 'product', product, class: form_class, novalidate: 'novalidate', data-product-form: '' -%}
   <p class="label">{{ product.type | default: 'CALMST8' | escape }}</p>
   <h1>{{ product.title | escape }}{% if colour != blank %} <em>{{ colour | escape }}</em>{% endif %}</h1>
   <p class="price">{{ product.price | money }}</p>
@@ -22,4 +28,8 @@
   <button class="add" type="submit" {% unless product.available %}disabled{% endunless %}>
     {%- if product.available -%}Add to bag <span aria-hidden="true">+</span>{%- else -%}Sold out{%- endif -%}
   </button>
+  {%- if product.available -%}
+    {%- comment -%} Shop Pay / express checkout. Greyed out until a size is chosen, so it never buys the wrong size. {%- endcomment -%}
+    <div class="buy-now">{{ form | payment_button }}</div>
+  {%- endif -%}
 {%- endform -%}

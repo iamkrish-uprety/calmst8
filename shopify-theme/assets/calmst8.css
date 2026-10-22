@@ -446,3 +446,11 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--denim); outline
 .shopify-policy__body { font-size: 16px; line-height: 1.75; color: var(--graphite); }
 .shopify-policy__body h2, .shopify-policy__body h3 { color: var(--ink); }
 .shopify-policy__body a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+
+/* Shop Pay and other express checkout buttons */
+.buy-now { margin-top: 10px; max-width: 320px; transition: opacity .3s var(--ease); }
+[data-product-form]:not(.has-size) .buy-now { opacity: .35; pointer-events: none; }
+.buy-now .shopify-payment-button__button, .express-checkout .shopify-cleanslate { border-radius: 0 !important; }
+.buy-now .shopify-payment-button__button--unbranded { background: var(--studio); color: var(--ink); border: 1px solid var(--ink); font-family: var(--body); }
+.buy-now .shopify-payment-button__more-options { color: var(--graphite); font-size: 13px; text-decoration: underline; text-underline-offset: 3px; }
+.express-checkout { margin-top: 12px; }
