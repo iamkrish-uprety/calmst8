@@ -1,29 +1,55 @@
 <footer class="foot">
+  <nav class="foot-links" aria-label="Footer">
+    {%- for block in section.blocks -%}
+      <div class="foot-group" {{ block.shopify_attributes }}>
+        <p class="label">{{ block.settings.title | escape }}</p>
+        {%- for link in block.settings.menu.links -%}
+          <a href="{{ link.url }}">{{ link.title | escape }}</a>
+        {%- endfor -%}
+      </div>
+    {%- endfor -%}
+    {%- if section.settings.show_policies and shop.policies.size > 0 -%}
+      <div class="foot-group">
+        <p class="label">Legal</p>
+        {%- for policy in shop.policies -%}
+          <a href="{{ policy.url }}">{{ policy.title | escape }}</a>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+    <div class="foot-group">
+      <p class="label">{{ section.settings.wordmark | default: shop.name }}</p>
+      {%- if section.settings.email != blank -%}<a href="mailto:{{ section.settings.email }}">{{ section.settings.email | escape }}</a>{%- endif -%}
+      {%- if section.settings.instagram != blank -%}<a href="https://www.instagram.com/{{ section.settings.instagram }}/" target="_blank" rel="noopener">Instagram ↗</a>{%- endif -%}
+    </div>
+  </nav>
   <p class="foot-mark" aria-hidden="true">{{ section.settings.wordmark | default: shop.name }}</p>
   <div class="foot-row">
     <span>© {{ 'now' | date: '%Y' }} {{ shop.name }}</span>
     <span>{{ section.settings.line | escape }}</span>
-    {%- for link in section.settings.menu.links -%}
-      <a href="{{ link.url }}">{{ link.title | escape }}</a>
-    {%- endfor -%}
-    {%- if section.settings.email != blank -%}
-      <a href="mailto:{{ section.settings.email }}">{{ section.settings.email | escape }}</a>
-    {%- endif -%}
-    {%- if section.settings.instagram != blank -%}
-      <a href="https://www.instagram.com/{{ section.settings.instagram }}/" target="_blank" rel="noopener">Instagram ↗</a>
-    {%- endif -%}
+    <a href="#MainContent">Back to top ↑</a>
   </div>
 </footer>
 
 {% schema %}
 {
   "name": "Footer",
+  "max_blocks": 3,
   "settings": [
     { "type": "text", "id": "wordmark", "label": "Wordmark", "default": "CALMST8" },
     { "type": "text", "id": "line", "label": "Line", "default": "Calm state. Built for everyday." },
-    { "type": "link_list", "id": "menu", "label": "Menu", "info": "Add your policy pages (shipping, refunds, privacy) here." },
+    { "type": "checkbox", "id": "show_policies", "label": "List store policies (shipping, refunds, privacy, terms)", "default": true },
     { "type": "text", "id": "email", "label": "Contact email", "default": "help@calmst8.com" },
     { "type": "text", "id": "instagram", "label": "Instagram username", "default": "calmst8.world" }
+  ],
+  "blocks": [
+    {
+      "type": "links",
+      "name": "Link group",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Heading", "default": "Help" },
+        { "type": "link_list", "id": "menu", "label": "Menu", "info": "For example a menu with About us, FAQ, Contact and Payment policy." }
+      ]
+    }
   ]
 }
 {% endschema %}

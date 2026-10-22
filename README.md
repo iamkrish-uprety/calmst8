@@ -32,7 +32,9 @@ Products, prices, descriptions and photos now come from the existing Shopify sto
 - [ ] **Instagram handle.** This site links to `@calmst8.world`, but the old store's footer says `@calmst8`. Use one everywhere.
 - [ ] **Self Love tee sale price.** On the old store its "compare at" price (£24.99) is lower than its price (£29.99). It should be higher, or empty.
 - [ ] **Supplier.** Who ships the orders, and the email or app to connect (see section B).
-- [ ] **Policies.** The old store already has shipping and refund policies (14-day returns, help@calmst8.com). Check they match the dropshipping supplier's terms.
+- [ ] **Policies.** The footer pages are copied from the old store. Check they match the dropshipping supplier's terms.
+- [ ] **Privacy policy contact.** The privacy policy (copied as written) lists a personal Gmail address and a Coventry postcode as the data-controller contact. Consider using help@calmst8.com and a business address instead.
+- [ ] **Privacy policy wording for version A.** It says the store is "powered by Shopify". If version A launches instead, it should name Stripe and Cloudflare.
 
 ---
 
@@ -86,6 +88,7 @@ You need Node 18+ and a Cloudflare account. Run `npm install` once.
 - **Prices, sizes, new products:** edit `public/products.json` (prices are in pence), then run `npx wrangler deploy`.
 - **New photos:** put them in `public/images/` and update `image` in `products.json`.
 - **Shipping worldwide:** add country codes to `shipping.countries` (for example `"IE", "FR", "US"`) and add a rate for each region in `shipping.rates`.
+- **Footer pages** (About, FAQ, Contact, policies): edit `content/pages/*.html`, then run `npm run pages`. This rebuilds the pages and the shared footer.
 - **Tests:** `npm test`.
 - **Local run:** `npx wrangler dev`. Put test keys in `.dev.vars`, which git ignores.
 

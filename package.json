@@ -6,7 +6,8 @@
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
     "test": "node --test worker/test/*.test.js",
-    "theme:zip": "rm -f calmst8-theme.zip && cd shopify-theme && zip -qr ../calmst8-theme.zip . -x \".*\""
+    "theme:zip": "rm -f calmst8-theme.zip && cd shopify-theme && zip -qr ../calmst8-theme.zip . -x \".*\"",
+    "pages": "python3 scripts/build_pages.py"
   },
   "devDependencies": {
     "wrangler": "^4"

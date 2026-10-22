@@ -112,16 +112,46 @@
     </section>
   </main>
 
+  <!-- footer:start -->
   <footer class="foot">
+    <nav class="foot-links" aria-label="Footer">
+      <div class="foot-group">
+        <p class="label">Shop</p>
+        <a href="./#pieces">All pieces</a>
+        <a href="./#heaven-wash-cross-jeans">Jeans</a>
+        <a href="./#washed-charcoal-hoodie">Hoodies</a>
+        <a href="./#members-only-oversized-tee-black">T-shirts</a>
+      </div>
+      <div class="foot-group">
+        <p class="label">Help</p>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact</a>
+        <a href="shipping.html">Shipping</a>
+        <a href="returns.html">Returns and refunds</a>
+      </div>
+      <div class="foot-group">
+        <p class="label">Legal</p>
+        <a href="terms.html">Terms of service</a>
+        <a href="privacy.html">Privacy policy</a>
+        <a href="payment.html">Payment policy</a>
+        <a href="contact-information.html">Contact information</a>
+      </div>
+      <div class="foot-group">
+        <p class="label">CALMST8</p>
+        <a href="about.html">About us</a>
+        <a href="mailto:help@calmst8.com">help@calmst8.com</a>
+        <a href="https://www.instagram.com/calmst8.world/" target="_blank" rel="noopener">Instagram ↗</a>
+      </div>
+    </nav>
     <p class="foot-mark" aria-hidden="true">CALMST8</p>
     <div class="foot-row">
-      <span>© <span id="year"></span> CALMST8</span>
+      <span>© <span class="year">2026</span> CALMST8</span>
       <span>Calm state. Built for everyday.</span>
-      <a href="mailto:help@calmst8.com">help@calmst8.com</a>
-      <a href="https://www.instagram.com/calmst8.world/" target="_blank" rel="noopener">Instagram ↗</a>
       <a href="#top">Back to top ↑</a>
     </div>
   </footer>
+  <script>document.querySelectorAll('.year').forEach(el => el.textContent = new Date().getFullYear());</script>
+  <!-- footer:end -->
 
   <dialog class="bag" id="bag" aria-labelledby="bag-title">
     <div class="bag-head">

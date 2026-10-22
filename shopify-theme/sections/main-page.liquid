@@ -1,7 +1,8 @@
-<section class="simple-page">
+<div class="doc doc-{{ page.handle }}">
+  <p class="label">{{ shop.name }}</p>
   <h1>{{ page.title | escape }}</h1>
-  <div class="rte">{{ page.content }}</div>
-</section>
+  <div class="doc-body">{{ page.content }}</div>
+</div>
 
 {% schema %}
 { "name": "Page" }

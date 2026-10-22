@@ -4,6 +4,26 @@
   "sections": {
     "footer": {
       "type": "footer",
+      "blocks": {
+        "shop": {
+          "type": "links",
+          "settings": {
+            "title": "Shop",
+            "menu": "main-menu"
+          }
+        },
+        "help": {
+          "type": "links",
+          "settings": {
+            "title": "Help",
+            "menu": "footer"
+          }
+        }
+      },
+      "block_order": [
+        "shop",
+        "help"
+      ],
       "settings": {}
     }
   },

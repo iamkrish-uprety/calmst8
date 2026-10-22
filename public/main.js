@@ -175,7 +175,6 @@ function watchPieces() {
   document.querySelectorAll('.piece').forEach(el => spy.observe(el));
 }
 
-document.getElementById('year').textContent = new Date().getFullYear();
 
 const start = () => requestAnimationFrame(() => document.documentElement.classList.add('loaded'));
 document.fonts ? document.fonts.ready.then(start) : window.addEventListener('load', start);
