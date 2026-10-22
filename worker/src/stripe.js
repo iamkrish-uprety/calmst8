@@ -28,7 +28,7 @@ export async function createCheckoutSession(secretKey, { catalog, lines, origin 
         product_data: {
           name: `${product.name}, ${product.colour}`,
           description: `Size ${size}. ${catalog.leadTime}`,
-          images: [new URL(product.image, origin + '/').href],
+          images: [new URL(product.images[0], origin + '/').href],
           metadata: { product_id: product.id, size },
         },
       },

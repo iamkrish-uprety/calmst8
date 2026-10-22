@@ -1,44 +1,50 @@
 {
-  "_note": "Single source of truth for the shop. The checkout backend reads prices from this file, never from the browser. Prices are in pence. Replace the placeholder prices and sizes before going live, then set placeholder to false.",
-  "placeholder": true,
+  "_note": "Single source of truth for the shop. The checkout backend reads prices from this file, never from the browser. Prices are in pence. Products, prices, descriptions and photos come from the existing CALMST8 Shopify store (calmst8-3.myshopify.com).",
+  "placeholder": false,
   "currency": "gbp",
   "shipping": {
     "countries": ["GB"],
     "rates": [
-      { "label": "UK delivery", "amount": 500, "minBusinessDays": 10, "maxBusinessDays": 15 }
+      { "label": "UK delivery", "amount": 299, "minBusinessDays": 10, "maxBusinessDays": 15 }
     ]
   },
-  "leadTime": "Made to order. Delivered in about 2 weeks.",
+  "leadTime": "Delivered in about 2 weeks.",
   "products": [
     {
-      "id": "charcoal-hoodie", "name": "Washed hoodie", "colour": "Charcoal", "kind": "Hoodie",
-      "price": 6500, "sizes": ["S", "M", "L", "XL"],
-      "image": "images/charcoal-hoodie.jpg", "post": "DWJllP_jPAE",
-      "desc": "A relaxed hoodie with a washed finish. Shown with dark cross-detail trousers."
+      "id": "heaven-wash-cross-jeans", "name": "Heaven Wash Cross Jeans", "colour": "Washed blue", "kind": "Jeans",
+      "price": 3999, "sizes": ["S", "M", "L", "XL"],
+      "images": ["images/shop/heaven-wash-cross-jeans-2.jpg", "images/shop/heaven-wash-cross-jeans-1.jpg"], "post": "DWcB03cjNlr",
+      "desc": "Designed to bring a lighter edge to statement streetwear. A washed blue denim finish with signature cross detailing and a relaxed straight-leg fit, for everyday comfort with a bold yet effortless look."
     },
     {
-      "id": "cross-denim", "name": "Cross-detail denim", "colour": "Faded blue", "kind": "Denim",
-      "price": 8500, "sizes": ["28", "30", "32", "34", "36"],
-      "image": "images/cross-denim.jpg", "post": "DWcB03cjNlr",
-      "desc": "Wide-leg denim with frayed cross appliqués down both legs."
+      "id": "obsidian-cross", "name": "Obsidian Cross Jeans", "colour": "Washed black", "kind": "Jeans",
+      "price": 3999, "sizes": ["S", "M", "L", "XL"],
+      "images": ["images/shop/obsidian-cross-1.jpg", "images/shop/obsidian-cross-2.jpg"],
+      "desc": "Bold detail on an everyday streetwear essential. A washed obsidian finish with signature cross detailing and a relaxed straight-leg fit, made to stand out from the ordinary."
     },
     {
-      "id": "brown-hoodie", "name": "Washed hoodie", "colour": "Earth brown", "kind": "Hoodie",
-      "price": 6500, "sizes": ["S", "M", "L", "XL"],
-      "image": "images/brown-hoodie.jpg", "post": "DWUt3zAjORb",
-      "desc": "A pullover hoodie with a washed finish and a front pocket. Shown with blue cross-detail denim."
+      "id": "washed-charcoal-hoodie", "name": "Washed Charcoal Hoodie", "colour": "Charcoal", "kind": "Hoodie",
+      "price": 4499, "sizes": ["S", "M", "L", "XL"],
+      "images": ["images/shop/washed-charcoal-hoodie-1.jpg", "images/shop/washed-charcoal-hoodie-2.jpg"], "post": "DWJllP_jPAE",
+      "desc": "Designed around embracing calm through simplicity and confidence. A washed charcoal finish with subtle embroidered detailing and a relaxed streetwear fit, for an effortless, understated edge."
     },
     {
-      "id": "red-graphic-tee", "name": "Graphic tee", "colour": "Black, red print", "kind": "Graphic tee",
-      "price": 4000, "sizes": ["S", "M", "L", "XL"],
-      "image": "images/red-graphic-tee.jpg", "post": "DWOoohyDOk_",
-      "desc": "An oversized black tee with a large portrait graphic and red lettering across the back."
+      "id": "umber-core-hoodie", "name": "Umber Core Hoodie", "colour": "Umber", "kind": "Hoodie",
+      "price": 4499, "sizes": ["S", "M", "L", "XL"],
+      "images": ["images/shop/umber-core-hoodie-1.jpg", "images/shop/umber-core-hoodie-2.jpg"], "post": "DWUt3zAjORb",
+      "desc": "Designed around finding strength in simplicity and staying grounded. A rich umber finish with subtle embroidered detailing and a relaxed streetwear fit, for style that stays effortless and understated."
     },
     {
-      "id": "white-graphic-tee", "name": "Graphic tee", "colour": "Black, white print", "kind": "Graphic tee",
-      "price": 4000, "sizes": ["S", "M", "L", "XL"],
-      "image": "images/white-graphic-tee.jpg", "post": "DWE3_ouDChF",
-      "desc": "A black tee with a monochrome portrait graphic and oversized white lettering across the back."
+      "id": "members-only-oversized-tee-black", "name": "Members Only Oversized Tee", "colour": "Black", "kind": "T-shirt",
+      "price": 2999, "sizes": ["S", "M", "L", "XL"],
+      "images": ["images/shop/members-only-oversized-tee-black-1.jpg", "images/shop/members-only-oversized-tee-black-2.jpg", "images/shop/members-only-oversized-tee-black-3.jpg"], "post": "DWOoohyDOk_",
+      "desc": "Designed around protecting your peace and keeping your circle close. Bold statement graphics with an oversized streetwear fit, and a reminder that not everyone deserves access to your energy."
+    },
+    {
+      "id": "self-love-t-shirt", "name": "Self Love Club Tee", "colour": "Black", "kind": "T-shirt",
+      "price": 2999, "sizes": ["S", "M", "L", "XL"],
+      "images": ["images/shop/self-love-t-shirt-1.jpg", "images/shop/self-love-t-shirt-2.jpg"], "post": "DWE3_ouDChF",
+      "desc": "A reminder that confidence starts from within. Premium comfort in a minimalist streetwear cut, made for everyday wear, out with friends or keeping it simple."
     }
   ]
 }

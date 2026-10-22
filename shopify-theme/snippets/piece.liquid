@@ -3,7 +3,8 @@
   Usage: {% render 'piece', product: product, heading: 'h3' %}
   Variants are listed directly, so products should have a single option (Size).
   Colour comes from the product metafield custom.colour (single line text).
-  For made-to-order, set each variant to "Continue selling when out of stock" or don't track inventory.
+  For dropshipping, set each variant to "Continue selling when out of stock" or don't track inventory.
+  The first product image is shown first (use the flat lay); the second fades in on hover or swipes in on phones.
 {%- endcomment -%}
 {%- liquid
   assign heading = heading | default: 'h3'
@@ -11,10 +12,13 @@
   assign option_name = product.options.first | default: 'Size'
 -%}
 <article class="piece reveal" id="{{ product.handle }}" aria-labelledby="{{ product.handle }}-name">
-  <div class="piece-img">
-    {%- if product.featured_image -%}
-      {{ product.featured_image | image_url: width: 1000 | image_tag: loading: 'lazy', sizes: '(min-width: 960px) 30vw, 90vw', widths: '400, 600, 800, 1000' }}
-    {%- endif -%}
+  <div class="piece-media">
+    <div class="piece-img{% if product.images.size > 1 %} has-alt{% endif %}">
+      {%- for image in product.images limit: 3 -%}
+        {{ image | image_url: width: 1000 | image_tag: loading: 'lazy', sizes: '(min-width: 960px) 30vw, 90vw', widths: '400, 600, 800, 1000' }}
+      {%- endfor -%}
+    </div>
+    {%- if product.images.size > 1 -%}<p class="swipe-hint label" aria-hidden="true">Swipe for more photos</p>{%- endif -%}
   </div>
   {%- form 'product', product, class: 'piece-tag', novalidate: 'novalidate', data-product-form: '' -%}
     <p class="label">{{ product.type | default: 'CALMST8' | escape }}</p>

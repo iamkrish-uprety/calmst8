@@ -6,6 +6,9 @@
     {%- for link in section.settings.menu.links -%}
       <a href="{{ link.url }}">{{ link.title | escape }}</a>
     {%- endfor -%}
+    {%- if section.settings.email != blank -%}
+      <a href="mailto:{{ section.settings.email }}">{{ section.settings.email | escape }}</a>
+    {%- endif -%}
     {%- if section.settings.instagram != blank -%}
       <a href="https://www.instagram.com/{{ section.settings.instagram }}/" target="_blank" rel="noopener">Instagram ↗</a>
     {%- endif -%}
@@ -19,6 +22,7 @@
     { "type": "text", "id": "wordmark", "label": "Wordmark", "default": "CALMST8" },
     { "type": "text", "id": "line", "label": "Line", "default": "Calm state. Built for everyday." },
     { "type": "link_list", "id": "menu", "label": "Menu", "info": "Add your policy pages (shipping, refunds, privacy) here." },
+    { "type": "text", "id": "email", "label": "Contact email", "default": "help@calmst8.com" },
     { "type": "text", "id": "instagram", "label": "Instagram username", "default": "calmst8.world" }
   ]
 }

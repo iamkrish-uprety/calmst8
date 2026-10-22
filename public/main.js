@@ -28,8 +28,11 @@ function renderCollection() {
 
   $('#pieces-list').innerHTML = catalog.products.map(p => `
     <article class="piece reveal" id="${p.id}" aria-labelledby="${p.id}-name">
-      <div class="piece-img">
-        <img src="${esc(p.image)}" alt="${esc(p.name)} in ${esc(p.colour.toLowerCase())}" loading="lazy">
+      <div class="piece-media">
+        <div class="piece-img${p.images.length > 1 ? ' has-alt' : ''}">
+          ${p.images.map((src, i) => `<img src="${esc(src)}" alt="${esc(p.name)}, ${esc(p.colour.toLowerCase())}${i ? ', worn' : ''}" loading="lazy">`).join('')}
+        </div>
+        ${p.images.length > 1 ? '<p class="swipe-hint label" aria-hidden="true">Swipe for more photos</p>' : ''}
       </div>
       <form class="piece-tag" data-id="${p.id}" novalidate>
         <p class="label">${esc(p.kind)}</p>
@@ -42,7 +45,7 @@ function renderCollection() {
         </fieldset>
         <p class="size-error" role="alert"></p>
         <button class="add" type="submit">Add to bag <span aria-hidden="true">+</span></button>
-        <a class="link" href="https://www.instagram.com/calmst8.world/p/${esc(p.post)}/" target="_blank" rel="noopener">See it on Instagram <span aria-hidden="true">↗</span></a>
+        ${p.post ? `<a class="link" href="https://www.instagram.com/calmst8.world/p/${esc(p.post)}/" target="_blank" rel="noopener">See it on Instagram <span aria-hidden="true">↗</span></a>` : ''}
       </form>
     </article>`).join('');
 
@@ -91,7 +94,7 @@ function renderBag() {
   $('#bag-items').innerHTML = lines.map((l, i) => {
     const p = product(l.id);
     return `<li class="bag-item">
-      <img src="${esc(p.image)}" alt="" width="72" height="90">
+      <img src="${esc(p.images[0])}" alt="" width="72" height="90">
       <div>
         <p class="bag-name">${esc(p.name)}</p>
         <p class="bag-meta">${esc(p.colour)} · Size ${esc(l.size)}</p>
@@ -182,7 +185,7 @@ document.fonts ? document.fonts.ready.then(start) : window.addEventListener('loa
   catalog = await fetch('products.json').then(r => r.json());
   $('#lead-note').textContent = catalog.placeholder
     ? `${catalog.leadTime} Prices shown are samples until launch.`
-    : catalog.leadTime;
+    : `${catalog.leadTime} UK delivery ${money(catalog.shipping.rates[0].amount)}.`;
   $('#bag-lead').textContent = catalog.leadTime;
   renderCollection();
   renderBag();

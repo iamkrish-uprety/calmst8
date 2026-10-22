@@ -20,11 +20,11 @@
 
   <main class="thanks">
     <p class="label" id="order-number">Order confirmed</p>
-    <h1 id="thanks-title">Thank you.<br><em>It’s being made for you.</em></h1>
+    <h1 id="thanks-title">Thank you.<br><em>Your order is on its way.</em></h1>
     <p class="thanks-lead" id="thanks-lead">Your payment went through. A confirmation email is on its way.</p>
     <ul class="thanks-items" id="thanks-items" hidden></ul>
     <p class="thanks-total" id="thanks-total" hidden></p>
-    <p class="thanks-note">Each piece is made to order and arrives in about 2 weeks. Questions? Reply to your confirmation email or <a class="link" href="https://ig.me/m/calmst8.world" target="_blank" rel="noopener">message @calmst8.world</a>.</p>
+    <p class="thanks-note">Your order arrives in about 2 weeks. Questions? Email <a class="link" href="mailto:help@calmst8.com">help@calmst8.com</a> or <a class="link" href="https://ig.me/m/calmst8.world" target="_blank" rel="noopener">message us on Instagram</a>.</p>
   </main>
 
   <script>
@@ -36,7 +36,7 @@
         .then(r => r.ok ? r.json() : Promise.reject())
         .then(o => {
           document.getElementById('order-number').textContent = 'Order ' + o.number;
-          if (o.firstName) document.getElementById('thanks-title').innerHTML = `Thank you, ${esc(o.firstName)}.<br><em>It’s being made for you.</em>`;
+          if (o.firstName) document.getElementById('thanks-title').innerHTML = `Thank you, ${esc(o.firstName)}.<br><em>Your order is on its way.</em>`;
           document.getElementById('thanks-lead').textContent = `A confirmation has been sent to ${o.email}.`;
           const list = document.getElementById('thanks-items');
           list.innerHTML = o.items.map(i => `<li><span>${esc(i.name)}, ${esc(i.colour)}</span><span>Size ${esc(i.size)} × ${i.qty}</span></li>`).join('');

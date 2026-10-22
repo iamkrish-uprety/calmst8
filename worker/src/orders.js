@@ -103,7 +103,7 @@ export function orderEmails(order, env) {
         `Thank you${order.customer.name ? `, ${order.customer.name.split(' ')[0]}` : ''}. Your order ${order.number} is confirmed.`, '',
         ...order.items.map(i => `${i.qty} × ${i.name}, ${i.colour}, size ${i.size}: ${i.lineTotal}`),
         '', `Total paid: ${order.totalFormatted}`,
-        '', 'Each piece is made to order. It will arrive in about 2 weeks, by ' + order.deliverBy + '.',
+        '', 'Your order will arrive in about 2 weeks, by ' + order.deliverBy + '.',
         '', 'Delivering to:', order.shipTo.name, ...order.shipTo.lines,
         '', 'Questions? Reply to this email or message @calmst8.world on Instagram.',
       ].join('\n'),
@@ -111,7 +111,7 @@ export function orderEmails(order, env) {
         <p>Thank you${order.customer.name ? `, ${esc(order.customer.name.split(' ')[0])}` : ''}. Order <strong>${esc(order.number)}</strong> is confirmed.</p>
         ${itemsTable(order, true)}
         ${totals(order)}
-        <p>Each piece is made to order. It will arrive in about 2 weeks, by <strong>${esc(order.deliverBy)}</strong>.</p>
+        <p>Your order will arrive in about 2 weeks, by <strong>${esc(order.deliverBy)}</strong>.</p>
         ${block('Delivering to', [order.shipTo.name, ...order.shipTo.lines])}
         <p>Questions? Reply to this email or message <a href="https://www.instagram.com/calmst8.world/">@calmst8.world</a> on Instagram.</p>`),
     });

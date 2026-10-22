@@ -7,24 +7,24 @@
           "type": "look",
           "settings": {
             "fallback": "brown-hoodie.jpg",
-            "title": "Washed hoodie",
-            "colour": "Earth brown"
+            "title": "Umber Core Hoodie",
+            "colour": "Umber"
           }
         },
         "look2": {
           "type": "look",
           "settings": {
             "fallback": "charcoal-hoodie.jpg",
-            "title": "Washed hoodie",
+            "title": "Washed Charcoal Hoodie",
             "colour": "Charcoal"
           }
         },
         "look3": {
           "type": "look",
           "settings": {
-            "fallback": "white-graphic-tee.jpg",
-            "title": "Graphic tee",
-            "colour": "White print"
+            "fallback": "members-only-oversized-tee-black-3.jpg",
+            "title": "Members Only tee",
+            "colour": "Black"
           }
         }
       },
@@ -37,11 +37,17 @@
     },
     "intro": {
       "type": "intro",
-      "settings": {}
+      "settings": {
+        "big": "Stay grounded.",
+        "big_italic": "Protect your peace.",
+        "text": "CALMST8 makes streetwear around one idea: stay grounded. Graphic tees, relaxed hoodies and cross-detail denim, designed for everyday wear and made to keep your style effortless and understated."
+      }
     },
     "pieces": {
       "type": "featured-pieces",
-      "settings": {}
+      "settings": {
+        "heading": "Six pieces."
+      }
     },
     "details": {
       "type": "details",
@@ -49,17 +55,17 @@
         "d1": {
           "type": "detail",
           "settings": {
-            "fallback": "cross-denim.jpg",
-            "label": "Denim",
-            "text": "Frayed cross appliqu\u00e9s, placed down both legs."
+            "fallback": "obsidian-cross-2.jpg",
+            "label": "Jeans",
+            "text": "Signature cross appliqu\u00e9s on washed black denim."
           }
         },
         "d2": {
           "type": "detail",
           "settings": {
-            "fallback": "red-graphic-tee.jpg",
-            "label": "Graphic tee",
-            "text": "An oversized back print with red lettering across the shoulders."
+            "fallback": "self-love-t-shirt-2.jpg",
+            "label": "T-shirt",
+            "text": "Self Love Club, printed oversized across the back."
           }
         }
       },
@@ -83,14 +89,14 @@
           "type": "step",
           "settings": {
             "title": "Pay at checkout",
-            "text": "Pay securely at checkout. We deliver in the UK for now."
+            "text": "Pay securely at checkout. UK delivery is a flat \u00a32.99."
           }
         },
         "s3": {
           "type": "step",
           "settings": {
-            "title": "We make it for you",
-            "text": "You get a confirmation email straight away, and your order arrives in about 2 weeks."
+            "title": "We send it to you",
+            "text": "You get a confirmation email straight away, and your order arrives in about 2 weeks. Returns are accepted within 14 days."
           }
         }
       },
@@ -99,7 +105,10 @@
         "s2",
         "s3"
       ],
-      "settings": {}
+      "settings": {
+        "heading": "Order online,",
+        "heading_italic": "with you in two weeks."
+      }
     }
   },
   "order": [

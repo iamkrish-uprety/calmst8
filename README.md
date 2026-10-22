@@ -1,6 +1,8 @@
 # CALMST8 online shop
 
-The CALMST8 website comes in two versions with the same design. Pick one to launch.
+The CALMST8 website comes in two versions with the same design.
+
+**Recommended: B. Shopify.** CALMST8 is a dropshipping store, and Shopify can send each order to the supplier, sync tracking numbers and handle returns. The products already exist in the CALMST8 Shopify store (`calmst8-3.myshopify.com`), so the theme can go straight onto it. Version A stays in the repo as a lower-cost fallback.
 
 | | **A. Stripe + Cloudflare** (`public/` + `worker/`) | **B. Shopify** (`shopify-theme/`) |
 |---|---|---|
@@ -21,13 +23,16 @@ Both versions work the same way for customers:
 
 ---
 
-## Before launch: things only the owner can provide
+## Before launch: things to confirm with the owner
 
-- [ ] **Final prices and sizes.** The current ones in `public/products.json` are samples, and the site says so.
-- [ ] **High-resolution photos.** Ideally 2000 px tall or more, full-length, on the same light grey studio background. The design blends that background into the page.
-- [ ] **Owner email**, and the **warehouse email** if order copies should go there automatically.
-- [ ] **UK delivery price.** £5 is a placeholder.
-- [ ] **Policy pages:** delivery, returns for made-to-order items, privacy and terms. A UK shop needs these.
+Products, prices, descriptions and photos now come from the existing Shopify store: 6 pieces, £29.99–£44.99, with £2.99 UK delivery.
+
+- [ ] **Sizes.** Heaven Wash Cross Jeans and the Members Only tee have S–XL on the old store. Obsidian Cross Jeans, both hoodies and the Self Love tee have no sizes there, so S–XL is assumed for them as well.
+- [ ] **Delivery time.** The site says "about 2 weeks", as the owner asked. The old store's shipping policy and FAQ say 4–10 business days. Update the policy to match.
+- [ ] **Instagram handle.** This site links to `@calmst8.world`, but the old store's footer says `@calmst8`. Use one everywhere.
+- [ ] **Self Love tee sale price.** On the old store its "compare at" price (£24.99) is lower than its price (£29.99). It should be higher, or empty.
+- [ ] **Supplier.** Who ships the orders, and the email or app to connect (see section B).
+- [ ] **Policies.** The old store already has shipping and refund policies (14-day returns, help@calmst8.com). Check they match the dropshipping supplier's terms.
 
 ---
 
@@ -89,16 +94,23 @@ You need Node 18+ and a Cloudflare account. Run `npm install` once.
 ## B. Shopify
 
 1. Build the theme file with `npm run theme:zip`. This creates `calmst8-theme.zip`.
-2. In Shopify admin, go to **Online Store → Themes → Add theme → Upload zip file**, then publish it.
-3. **Products:** add each piece with one option called **Size**, one variant per size. Set **Product type** to Hoodie, Denim or Graphic tee.
-4. **Colour line under the name:** in Settings → Custom data → Products, add a metafield `custom.colour` (single line text) and fill it in for each product.
-5. **Made to order:** on each variant, untick **Track quantity**, or tick **Continue selling when out of stock**.
-6. **UK delivery:** in Settings → Shipping and delivery, create a UK zone with one rate. For the delivery time, set the rate's transit time to about 2 weeks.
-7. **Order emails:**
-   - Owner: this is on by default (Settings → Notifications → Staff notifications).
-   - Warehouse: add the warehouse email as a staff notification recipient for **New order**.
-   - Customer: edit **Order confirmation** to add "Made to order. Delivered in about 2 weeks."
-8. **Theme editor:** pick the hero photos, the detail photos and the collection shown on the home page. The delivery wording is in Theme settings → Shop.
+2. In the existing store's admin (`calmst8-3`), go to **Online Store → Themes → Add theme → Upload zip file**. Preview it, then publish when happy. The old theme stays saved, so you can switch back at any time.
+3. **Products** are already there. For each one:
+   - Give it one option called **Size** (S, M, L, XL). Four products have no sizes yet.
+   - Set **Product type** to Jeans, Hoodie or T-shirt. This is the small label above the name.
+   - Put the flat-lay photo first. The worn photo shows on hover, or by swiping on phones.
+4. **Colour line under the name:** in Settings → Custom data → Products, add a metafield `custom.colour` (single line text). Fill it in: Washed blue, Washed black, Charcoal, Umber, Black, Black.
+5. **Dropshipping stock:** on each variant, untick **Track quantity**, or tick **Continue selling when out of stock**, unless the supplier app syncs stock.
+6. **Send orders to the supplier.** Choose the option that fits:
+   - **One manufacturer:** Settings → Locations → add a **fulfilment service** with the supplier's email. Assign the products to it. Shopify emails each order to them, and they reply with tracking.
+   - **Print-on-demand tees:** connect Printful or Printify.
+   - **AliExpress or Alibaba:** connect DSers.
+7. **UK delivery:** the £2.99 rate already exists. Set its transit time to match the supplier.
+8. **Emails:**
+   - Owner: order emails are on by default.
+   - Customer: Shopify sends the order confirmation, and a shipping email with tracking once the supplier ships.
+   - Add the delivery time to the **Order confirmation** template.
+9. **Theme editor:** pick the hero photos, the detail photos and the home page collection. The delivery wording is in Theme settings → Shop.
 
 ---
 

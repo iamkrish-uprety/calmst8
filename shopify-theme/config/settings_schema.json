@@ -14,7 +14,7 @@
         "type": "text",
         "id": "lead_time",
         "label": "Delivery promise",
-        "default": "Made to order. Delivered in about 2 weeks.",
+        "default": "Delivered in about 2 weeks.",
         "info": "Shown next to prices, in the bag and on product pages."
       },
       {
