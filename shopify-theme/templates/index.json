@@ -113,9 +113,14 @@
     "ticker": {
       "type": "ticker",
       "settings": {}
+    },
+    "film": {
+      "type": "film",
+      "settings": {}
     }
   },
   "order": [
+    "film",
     "hero",
     "ticker",
     "intro",

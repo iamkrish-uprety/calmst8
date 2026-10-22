@@ -114,5 +114,12 @@ const spy = new IntersectionObserver(entries => {
 }, { rootMargin: '-45% 0px -45% 0px' });
 document.querySelectorAll('.piece').forEach(el => spy.observe(el));
 
-const start = () => requestAnimationFrame(() => document.documentElement.classList.add('loaded'));
+// The hero entrance plays when the hero comes into view (it can sit below the film)
+const start = () => {
+  const hero = document.querySelector('.hero');
+  const go = () => requestAnimationFrame(() => document.documentElement.classList.add('loaded'));
+  if (!hero || !('IntersectionObserver' in window)) return go();
+  const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { go(); io.disconnect(); } }, { threshold: 0.25 });
+  io.observe(hero);
+};
 document.fonts ? document.fonts.ready.then(start) : window.addEventListener('load', start);

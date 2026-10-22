@@ -180,7 +180,14 @@ function watchPieces() {
 }
 
 
-const start = () => requestAnimationFrame(() => document.documentElement.classList.add('loaded'));
+// The hero entrance plays when the hero comes into view (it sits below the film)
+const start = () => {
+  const hero = document.querySelector('.hero');
+  const go = () => requestAnimationFrame(() => document.documentElement.classList.add('loaded'));
+  if (!hero || !('IntersectionObserver' in window)) return go();
+  const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { go(); io.disconnect(); } }, { threshold: 0.25 });
+  io.observe(hero);
+};
 document.fonts ? document.fonts.ready.then(start) : window.addEventListener('load', start);
 
 /* ---------- Boot ---------- */

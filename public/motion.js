@@ -7,6 +7,35 @@
   const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
   const $$ = (sel, scope = document) => [...scope.querySelectorAll(sel)];
 
+  /* ---------- Brand film: sound and pause controls (runs even with reduced motion) ---------- */
+  const film = document.querySelector('.film');
+  const video = film?.querySelector('video');
+  if (video) {
+    const soundBtn = document.getElementById('film-sound');
+    const playBtn = document.getElementById('film-play');
+    const setPlaying = playing => {
+      playBtn.textContent = playing ? 'Pause' : 'Play film';
+      playBtn.setAttribute('aria-pressed', String(playing));
+    };
+    if (reduce) { video.removeAttribute('autoplay'); video.pause(); setPlaying(false); }
+    video.addEventListener('play', () => setPlaying(true));
+    video.addEventListener('pause', () => setPlaying(false));
+    playBtn.addEventListener('click', () => (video.paused ? video.play() : video.pause()));
+    soundBtn.addEventListener('click', () => {
+      video.muted = !video.muted;
+      if (!video.muted && video.paused) video.play();
+      soundBtn.textContent = video.muted ? 'Sound on' : 'Sound off';
+      soundBtn.setAttribute('aria-pressed', String(!video.muted));
+    });
+    // Pause when the film is off screen; the header turns light while it sits over the film
+    const bar = document.querySelector('.bar');
+    new IntersectionObserver(([e]) => {
+      bar?.classList.toggle('over-film', e.intersectionRatio > 0.12);
+      if (!e.isIntersecting && !video.paused) { video.pause(); film.dataset.autopaused = '1'; }
+      else if (e.isIntersecting && film.dataset.autopaused) { delete film.dataset.autopaused; video.play(); }
+    }, { threshold: [0, 0.12] }).observe(film);
+  }
+
   if (reduce) {
     window.C8Motion = { refresh() {}, lenis: null };
     return;
@@ -113,6 +142,7 @@
 
   /* ---------- Scroll-linked: header, hero depth, parallax ---------- */
   const bar = document.querySelector('.bar');
+  const hero = document.querySelector('.hero');
   const mark = document.querySelector('.hero-mark');
   const looks = $$('.look img');
   const drift = [...$$('.detail-a img').map(el => [el, 0.05]), ...$$('.detail-b img').map(el => [el, -0.07])];
@@ -134,13 +164,22 @@
     mouse.x += (mouse.tx - mouse.x) * 0.06;
     mouse.y += (mouse.ty - mouse.y) * 0.06;
 
-    if (mark && y < vh * 1.3) {
-      mark.style.translate = `${-mouse.x * 14}px ${y * 0.32}px`;
-      mark.style.opacity = String(Math.max(0, 1 - y / (vh * 0.85)));
+    // Hero depth, measured from the hero's own top so it works below the film
+    const past = hero ? -hero.getBoundingClientRect().top : y;
+    if (mark && past > -vh && past < vh * 1.3) {
+      const p = Math.max(0, past);
+      mark.style.translate = `${-mouse.x * 14}px ${p * 0.32}px`;
+      mark.style.opacity = String(Math.max(0, 1 - p / (vh * 0.85)));
       looks.forEach((img, i) => {
         const depth = i === 1 ? 1 : 1.7;
-        img.style.translate = `${mouse.x * 9 * depth}px ${-y * 0.07 * depth + mouse.y * 5}px`;
+        img.style.translate = `${mouse.x * 9 * depth}px ${-p * 0.07 * depth + mouse.y * 5}px`;
       });
+    }
+
+    // The film settles back slightly as it scrolls away
+    if (video && y < vh * 1.2) {
+      video.style.scale = String(1 + Math.min(y / vh, 1) * 0.06);
+      video.style.opacity = String(1 - Math.min(y / vh, 1) * 0.35);
     }
 
     drift.forEach(([el, speed]) => {
@@ -153,8 +192,7 @@
   }
   requestAnimationFrame(onFrame);
 
-  if (finePointer && mark) {
-    const hero = document.querySelector('.hero');
+  if (finePointer && mark && hero) {
     hero.addEventListener('pointermove', e => {
       mouse.tx = (e.clientX / innerWidth) * 2 - 1;
       mouse.ty = (e.clientY / innerHeight) * 2 - 1;

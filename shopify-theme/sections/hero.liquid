@@ -3,7 +3,7 @@
   assign word = section.settings.wordmark | default: 'CALMST8'
   assign chars = word | split: ''
 -%}
-<section class="hero" aria-label="{{ word | escape }}">
+<section class="hero" id="looks" aria-label="{{ word | escape }}">
   <h1 class="hero-mark" aria-label="{{ word | escape }}">
     {%- for c in chars -%}<span>{{ c }}</span>{%- endfor -%}
   </h1>
