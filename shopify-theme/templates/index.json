@@ -4,14 +4,6 @@
       "type": "hero",
       "settings": {}
     },
-    "intro": {
-      "type": "intro",
-      "settings": {
-        "big": "Stay grounded.",
-        "big_italic": "Protect your peace.",
-        "text": "CALMST8 makes streetwear around one idea: stay grounded. Graphic tees, relaxed hoodies and cross-detail denim, designed for everyday wear and made to keep your style effortless and understated."
-      }
-    },
     "pieces": {
       "type": "featured-pieces",
       "settings": {}
@@ -40,7 +32,11 @@
         "d1",
         "d2"
       ],
-      "settings": {}
+      "settings": {
+        "label": "The details",
+        "heading": "IT\u2019S IN",
+        "heading_italic": "THE DETAILS."
+      }
     },
     "order": {
       "type": "order-steps",
@@ -55,15 +51,15 @@
         "s2": {
           "type": "step",
           "settings": {
-            "title": "Pay at checkout",
-            "text": "Pay securely at checkout. UK delivery is a flat \u00a32.99."
+            "title": "Pay securely at checkout",
+            "text": "Pay securely at checkout, including Shop Pay."
           }
         },
         "s3": {
           "type": "step",
           "settings": {
-            "title": "We send it to you",
-            "text": "You get a confirmation email straight away, and your order arrives in about 2 weeks. Returns are accepted within 14 days."
+            "title": "Delivery & returns",
+            "text": "UK delivery \u00a32.99, approximately two weeks. See shipping and returns for details."
           }
         }
       },
@@ -73,20 +69,63 @@
         "s3"
       ],
       "settings": {
-        "heading": "Order online,",
-        "heading_italic": "with you in two weeks."
+        "label": "How to order",
+        "heading": "YOUR NEXT",
+        "heading_italic": "EVERYDAY PIECE.",
+        "button": "Shop the collection",
+        "instagram": "calmst8.world"
       }
     },
-    "ticker": {
-      "type": "ticker",
+    "categories": {
+      "type": "category-nav",
+      "blocks": {
+        "c1": {
+          "type": "link",
+          "settings": {
+            "label": "SHOP ALL",
+            "url": "#shop"
+          }
+        },
+        "c2": {
+          "type": "link",
+          "settings": {
+            "label": "HOODIES",
+            "url": "#hoodies"
+          }
+        },
+        "c3": {
+          "type": "link",
+          "settings": {
+            "label": "T-SHIRTS",
+            "url": "#t-shirts"
+          }
+        },
+        "c4": {
+          "type": "link",
+          "settings": {
+            "label": "DENIM",
+            "url": "#jeans"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "settings": {}
+    },
+    "story": {
+      "type": "story",
       "settings": {}
     }
   },
   "order": [
     "hero",
-    "ticker",
+    "categories",
     "pieces",
-    "intro",
+    "story",
     "details",
     "order"
   ]

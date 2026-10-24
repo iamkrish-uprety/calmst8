@@ -6,11 +6,11 @@
   endif
   assign types = source.products | map: 'type' | uniq
 -%}
-<section class="shop" id="shop" aria-labelledby="shop-title-{{ section.id }}">
+<section class="shop" id="shop" aria-labelledby="shop-title">
   <div class="shop-head">
     <div>
       <p class="label">{{ section.settings.label | escape }}</p>
-      <h2 id="shop-title-{{ section.id }}">{{ section.settings.heading | escape }} <em>{{ section.settings.heading_italic | escape }}</em></h2>
+      <h2 id="shop-title">{{ section.settings.heading | escape }} {% if section.settings.heading_italic != blank %}<small>{{ section.settings.heading_italic | escape }}</small>{% endif %}</h2>
     </div>
     {%- if types.size > 1 -%}
       <div class="filters" role="group" aria-label="Filter by category" data-filters>
@@ -41,8 +41,8 @@
     { "type": "collection", "id": "collection", "label": "Collection", "info": "Leave empty to show all products." },
     { "type": "range", "id": "limit", "label": "Number of products", "min": 1, "max": 24, "step": 1, "default": 12 },
     { "type": "text", "id": "label", "label": "Label", "default": "The collection" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Shop all." },
-    { "type": "text", "id": "heading_italic", "label": "Heading, italic part", "default": "Six pieces." },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "THE COLLECTION" },
+    { "type": "text", "id": "heading_italic", "label": "Small line under the heading", "default": "01 — EVERYDAY EXPRESSION" },
     { "type": "text", "id": "note", "label": "Note under the grid", "default": "UK delivery £2.99." }
   ],
   "presets": [{ "name": "Shop grid" }]

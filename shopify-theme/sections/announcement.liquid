@@ -1,0 +1,12 @@
+<div class="announcement">{{ section.settings.text | escape }} {%- if section.settings.right != blank %} <span>{{ section.settings.right | escape }}</span>{% endif %}</div>
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "settings": [
+    { "type": "text", "id": "text", "label": "Text", "default": "CALM STATE. BUILT FOR EVERYDAY." },
+    { "type": "text", "id": "right", "label": "Right-hand text", "default": "UK DELIVERY £2.99" }
+  ],
+  "presets": [{ "name": "Announcement bar" }]
+}
+{% endschema %}

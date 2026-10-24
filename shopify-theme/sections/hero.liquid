@@ -1,6 +1,6 @@
 {%- comment -%}
-  Hero: the brand film, full width, muted until the visitor turns the sound on.
-  Pick a film in the theme editor, or the built-in CALMST8 film is used.
+  Hero: the brand film with a campaign headline. Pick a film in the theme editor,
+  or the built-in CALMST8 film is used.
 {%- endcomment -%}
 <section class="hero" aria-labelledby="hero-title-{{ section.id }}">
   {%- if section.settings.video != blank -%}
@@ -11,17 +11,15 @@
     </video>
   {%- endif -%}
   <div class="hero-shade" aria-hidden="true"></div>
-  <h1 class="visually-hidden" id="hero-title-{{ section.id }}">{{ shop.name }}, {{ section.settings.line | escape }}</h1>
-  <div class="hero-bar">
-    <div>
-      <p class="hero-line">{{ section.settings.line | escape }} <em>{{ section.settings.line_italic | escape }}</em></p>
-      <p class="hero-sub">{{ section.settings.sub | escape }}</p>
-    </div>
-    <div class="hero-actions">
-      <a class="button" href="#shop">{{ section.settings.button | escape }} <span aria-hidden="true">↓</span></a>
-      <button class="film-btn" type="button" id="film-sound" aria-pressed="false">Sound on</button>
-      <button class="film-btn" type="button" id="film-play" aria-pressed="true">Pause</button>
-    </div>
+  <div class="hero-title">
+    <p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    <h1 id="hero-title-{{ section.id }}">{{ section.settings.heading | escape | newline_to_br }}</h1>
+    <p>{{ section.settings.text | escape }}</p>
+    <a href="#shop" class="campaign-cta">{{ section.settings.button | escape }} <span aria-hidden="true">↗</span></a>
+  </div>
+  <div class="film-controls">
+    <button class="film-btn" type="button" id="film-play" aria-pressed="true">Pause</button>
+    <button class="film-btn" type="button" id="film-sound" aria-pressed="false">Sound on</button>
   </div>
 </section>
 
@@ -30,10 +28,10 @@
   "name": "Hero film",
   "settings": [
     { "type": "video", "id": "video", "label": "Film", "info": "Landscape (16:9) works best. Leave empty to use the built-in CALMST8 film." },
-    { "type": "text", "id": "line", "label": "Line", "default": "Considered streetwear." },
-    { "type": "text", "id": "line_italic", "label": "Line, italic part", "default": "Calm state." },
-    { "type": "text", "id": "sub", "label": "Small print", "default": "Jeans, hoodies and tees · UK delivery £2.99" },
-    { "type": "text", "id": "button", "label": "Button label", "default": "Shop the collection" }
+    { "type": "text", "id": "eyebrow", "label": "Small heading", "default": "THE CALMST8 COLLECTION" },
+    { "type": "textarea", "id": "heading", "label": "Headline", "default": "FIND YOUR\nCALM STATE." },
+    { "type": "text", "id": "text", "label": "Text", "default": "Streetwear with a purpose. Made for your everyday." },
+    { "type": "text", "id": "button", "label": "Button label", "default": "EXPLORE THE COLLECTION" }
   ],
   "presets": [{ "name": "Hero film" }]
 }

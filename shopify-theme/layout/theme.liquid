@@ -12,6 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Hanken+Grotesk:wght@400;500&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
   {{ 'calmst8.css' | asset_url | stylesheet_tag }}
+  {{ 'calmst8-refined.css' | asset_url | stylesheet_tag }}
   {{ content_for_header }}
 </head>
 <body>
@@ -27,6 +28,7 @@
   {% sections 'footer-group' %}
 
   {% render 'cart-drawer' %}
+  {% render 'info-dialogs' %}
 
   <script>
     window.CALMST8 = {
@@ -36,8 +38,6 @@
       moneyFormat: {{ shop.money_format | json }}
     };
   </script>
-  <script src="{{ 'lenis.min.js' | asset_url }}" defer></script>
-  <script src="{{ 'calmst8-motion.js' | asset_url }}" defer></script>
   <script src="{{ 'calmst8.js' | asset_url }}" defer></script>
 </body>
 </html>

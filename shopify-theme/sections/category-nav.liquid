@@ -1,0 +1,22 @@
+<nav class="category-nav" aria-label="Collections">
+  {%- for block in section.blocks -%}
+    <a href="{{ block.settings.url | default: '#shop' }}" {{ block.shopify_attributes }}>{{ block.settings.label | escape }}</a>
+  {%- endfor -%}
+</nav>
+
+{% schema %}
+{
+  "name": "Category strip",
+  "blocks": [
+    {
+      "type": "link",
+      "name": "Link",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "SHOP ALL" },
+        { "type": "text", "id": "url", "label": "Link", "default": "#shop", "info": "#shop for all, or #hoodies, #t-shirts, #jeans to open the shop filtered." }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Category strip" }]
+}
+{% endschema %}

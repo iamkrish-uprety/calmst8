@@ -1,0 +1,32 @@
+<section class="story" id="story">
+  <div class="story-image">
+    {%- if section.settings.image != blank -%}
+      {{ section.settings.image | image_url: width: 1400 | image_tag: loading: 'lazy', sizes: '(min-width: 700px) 50vw, 100vw', widths: '600, 900, 1200, 1400' }}
+    {%- else -%}
+      <img src="{{ 'charcoal-hoodie.jpg' | asset_url }}" alt="CALMST8 charcoal hoodie campaign" loading="lazy" width="520" height="640">
+    {%- endif -%}
+  </div>
+  <div class="story-copy">
+    <p class="eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    <h2>{{ section.settings.heading | escape | newline_to_br }}</h2>
+    {{ section.settings.text }}
+    {%- if section.settings.link != blank -%}
+      <a href="{{ section.settings.link }}" class="text-link">{{ section.settings.link_label | escape }} ↗</a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brand story",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "eyebrow", "label": "Small heading", "default": "MORE THAN WHAT YOU WEAR" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "PROTECT\nYOUR PEACE." },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>CALMST8 began with a simple intention: to create a clothing brand that means something beyond the clothes.</p><p>Rooted in mental health awareness, our message is about self-love, connection and finding your own sense of calm. The hope is simple: if this brand helps even one person feel less alone, it matters.</p>" },
+    { "type": "text", "id": "link", "label": "Link", "default": "/pages/about-us", "info": "For example /pages/about-us" },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "DISCOVER OUR STORY" }
+  ],
+  "presets": [{ "name": "Brand story" }]
+}
+{% endschema %}

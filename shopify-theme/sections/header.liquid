@@ -1,12 +1,12 @@
-<header class="bar{% unless template.name == 'index' %} scrolled{% endunless %}">
+<header class="bar scrolled">
   <nav class="bar-nav" aria-label="Main">
     {%- for link in section.settings.menu.links -%}
       <a href="{{ link.url }}">{{ link.title | escape }}</a>
     {%- else -%}
       <a href="{{ routes.root_url }}#shop">Shop</a>
-      <a href="{{ routes.root_url }}#details">Details</a>
-      <a href="{{ routes.root_url }}#order">How to order</a>
+      <a href="{{ routes.root_url }}#story">Our story</a>
     {%- endfor -%}
+    <button class="search-open" type="button">Search</button>
   </nav>
   <a class="bar-mark" href="{{ routes.root_url }}" aria-label="{{ shop.name }}, home">{{ section.settings.wordmark | default: shop.name }}</a>
   <a class="bar-cta bar-bag" href="{{ routes.cart_url }}" id="bag-open" aria-haspopup="dialog">
@@ -19,7 +19,7 @@
   "name": "Header",
   "settings": [
     { "type": "text", "id": "wordmark", "label": "Wordmark", "default": "CALMST8" },
-    { "type": "link_list", "id": "menu", "label": "Menu", "info": "Leave empty to show Collection, Details and How to order." }
+    { "type": "link_list", "id": "menu", "label": "Menu", "info": "Leave empty to show Shop and Our story. Search is always shown." }
   ]
 }
 {% endschema %}

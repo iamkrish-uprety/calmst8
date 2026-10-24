@@ -104,17 +104,83 @@ if (bar && !bar.classList.contains('scrolled')) {
   onScroll();
 }
 
-// Shop filters (by product type)
+// Shop filters (by product type). Links like #hoodies, #t-shirts or #jeans open the shop filtered.
+const singular = v => v.replace(/s$/, '');
+function applyFilter(slug) {
+  document.querySelectorAll('[data-filters]').forEach(group => {
+    group.querySelectorAll('[data-filter]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.filter === slug)));
+    group.closest('.shop').querySelectorAll('.card').forEach(card => { card.hidden = slug !== 'all' && card.dataset.cat !== slug; });
+  });
+}
 document.querySelectorAll('[data-filters]').forEach(group => {
   group.addEventListener('click', e => {
     const btn = e.target.closest('[data-filter]');
-    if (!btn) return;
-    const slug = btn.dataset.filter;
-    group.querySelectorAll('[data-filter]').forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
-    group.closest('.shop').querySelectorAll('.card').forEach(card => { card.hidden = slug !== 'all' && card.dataset.cat !== slug; });
-    window.C8Motion?.refresh();
+    if (btn) applyFilter(btn.dataset.filter);
   });
 });
+function filterFromHash() {
+  const wanted = singular(decodeURIComponent(location.hash.slice(1)).toLowerCase());
+  if (!wanted) return;
+  const btn = [...document.querySelectorAll('[data-filters] [data-filter]')].find(b => singular(b.dataset.filter) === wanted);
+  if (!btn) return;
+  applyFilter(btn.dataset.filter);
+  document.getElementById('shop')?.scrollIntoView();
+}
+window.addEventListener('hashchange', filterFromHash);
+filterFromHash();
+
+/* ---------- Film controls ---------- */
+const film = document.querySelector('.hero-video');
+const filmPlay = document.getElementById('film-play');
+const filmSound = document.getElementById('film-sound');
+if (film && filmPlay && filmSound) {
+  const setPlaying = on => { filmPlay.textContent = on ? 'Pause' : 'Play'; filmPlay.setAttribute('aria-pressed', String(on)); };
+  filmPlay.addEventListener('click', () => (film.paused ? film.play().catch(() => {}) : film.pause()));
+  film.addEventListener('play', () => setPlaying(true));
+  film.addEventListener('pause', () => setPlaying(false));
+  filmSound.addEventListener('click', () => {
+    film.muted = !film.muted;
+    if (!film.muted && film.paused) film.play().catch(() => {});
+    filmSound.textContent = film.muted ? 'Sound on' : 'Mute';
+    filmSound.setAttribute('aria-pressed', String(!film.muted));
+  });
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) { film.removeAttribute('autoplay'); film.pause(); setPlaying(false); }
+}
+
+/* ---------- Size guide and search dialogs ---------- */
+document.querySelectorAll('.info-dialog').forEach(d => {
+  d.querySelector('.dialog-close')?.addEventListener('click', () => d.close());
+  d.addEventListener('click', e => { if (e.target === d) d.close(); });
+});
+document.addEventListener('click', e => {
+  if (e.target.closest('.fit-open')) document.getElementById('fit-dialog')?.showModal();
+});
+
+const searchDialog = document.getElementById('search-dialog');
+const searchInput = document.getElementById('search-input');
+const searchResults = document.getElementById('search-results');
+let searchCatalog = null;
+async function runSearch() {
+  if (!searchCatalog) {
+    try { searchCatalog = (await fetch(C8.root + 'products.json?limit=250').then(r => r.json())).products; }
+    catch { searchCatalog = []; }
+  }
+  const q = searchInput.value.trim().toLowerCase();
+  const found = searchCatalog.filter(p => !q || `${p.title} ${p.product_type} ${p.product_type === 'Jeans' ? 'denim' : ''} ${p.tags}`.toLowerCase().includes(q));
+  searchResults.innerHTML = found.length
+    ? found.map(p => {
+        const img = p.images[0]?.src;
+        const price = Math.min(...p.variants.map(v => Number(v.price))) * 100;
+        return `<a href="${C8.root}products/${esc(p.handle)}">${img ? `<img src="${esc(img + (img.includes('?') ? '&' : '?') + 'width=160')}" alt="">` : ''}<span>${esc(p.title)}<br>${money(price)}</span></a>`;
+      }).join('')
+    : '<p class="search-result-empty">No pieces found. Try hoodie, tee or denim.</p>';
+}
+document.querySelectorAll('.search-open').forEach(btn => btn.addEventListener('click', () => {
+  searchDialog.showModal();
+  runSearch();
+  searchInput.focus();
+}));
+searchInput?.addEventListener('input', runSearch);
 
 // The hero entrance plays once the fonts are ready
 const start = () => requestAnimationFrame(() => document.documentElement.classList.add('loaded'));
